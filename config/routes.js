@@ -19,6 +19,12 @@ export default [
     ],
   },
   {
+    path: '/shop',
+    name: '門店/倉庫',
+    icon: 'smile',
+    component: './Shop/index',
+  },
+  {
     path: '/welcome',
     name: 'welcome',
     icon: 'smile',
