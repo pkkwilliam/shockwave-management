@@ -15,3 +15,23 @@ export async function COMPANY_QUERY(params = {}, sort, filter) {
   };
   return contructPaginationRequest(requestBody);
 }
+
+export async function CREATE_COMPANY(company) {
+  const requestBody = {
+    authenticated: true,
+    body: company,
+    method: 'POST',
+    requestUrl: ADMIN_COMPANY_SERVICE_URL,
+  };
+  return constructBasicRequest(requestBody);
+}
+
+export async function UPDATE_COMPANY(company) {
+  const requestBody = {
+    authenticated: true,
+    body: company,
+    method: 'PUT',
+    requestUrl: ADMIN_COMPANY_SERVICE_URL,
+  };
+  return constructBasicRequest(requestBody);
+}

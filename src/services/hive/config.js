@@ -8,8 +8,10 @@ export function getServiceUrl() {
 export async function constructBasicRequest(requestInfo, options) {
   const { body, method, requestUrl, params } = requestInfo;
   return request(getServiceUrl() + requestUrl, {
+    body: JSON.stringify(body),
     headers: {
       Authorization: 'Bearer ' + getUserToken(),
+      'Content-Type': 'application/json;charset=UTF-8',
     },
     method,
     params,
