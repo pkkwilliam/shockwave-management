@@ -1,13 +1,18 @@
 import React, { useRef, useState } from 'react';
 import ProTable from '@ant-design/pro-table';
 
-import { Button } from 'antd';
+import { Button, Popconfirm } from 'antd';
 import { PlusOutlined } from '@ant-design/icons';
 import { PageContainer } from '@ant-design/pro-layout';
 
 import CompanyModalForm from './components/companyModalForm';
 
-import { COMPANY_QUERY, CREATE_COMPANY, UPDATE_COMPANY } from '@/services/hive/company';
+import {
+  ADMIN_COMPANY_DELETE,
+  COMPANY_QUERY,
+  CREATE_COMPANY,
+  UPDATE_COMPANY,
+} from '@/services/hive/company';
 
 const Compamy = () => {
   const actionRef = useRef();
@@ -18,6 +23,11 @@ const Compamy = () => {
   const createCompanyServiceRequest = async (company) => {
     await CREATE_COMPANY(company);
     setCreateModalVisible(false);
+    onDataChanged();
+  };
+
+  const deleteCompanyServiceRequest = async (company) => {
+    await ADMIN_COMPANY_DELETE(company.id);
     onDataChanged();
   };
 
@@ -38,8 +48,8 @@ const Compamy = () => {
       width: 48,
     },
     {
-      title: '企業',
-      dataIndex: 'name',
+      title: '企業中文名',
+      dataIndex: 'chineseName',
       copyable: true,
       ellipsis: true,
       tip: '企業名過長會自動收縮',
@@ -51,6 +61,26 @@ const Compamy = () => {
           },
         ],
       },
+    },
+    {
+      title: '企業英文名',
+      dataIndex: 'englishName',
+      copyable: true,
+      ellipsis: true,
+      tip: '企業名過長會自動收縮',
+      formItemProps: {
+        rules: [
+          {
+            required: true,
+            message: '企業名為必填',
+          },
+        ],
+      },
+    },
+    {
+      title: '前序',
+      dataIndex: 'prefix',
+      copyable: true,
     },
     {
       title: '狀態',
@@ -107,6 +137,15 @@ const Compamy = () => {
           修改
         </a>,
         <a key="deactive">停用</a>,
+        <Popconfirm
+          cancelText="取消"
+          key="delete"
+          onConfirm={() => deleteCompanyServiceRequest(record)}
+          okText="確定"
+          title="確認刪除公司?"
+        >
+          <a>删除</a>
+        </Popconfirm>,
       ],
     },
   ];

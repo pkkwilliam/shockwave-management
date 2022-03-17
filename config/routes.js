@@ -19,17 +19,87 @@ export default [
     ],
   },
   {
-    path: '/company',
-    name: '企業',
-    icon: 'smile',
-    component: './Company/index',
+    path: '/admin',
+    name: 'admin',
+    icon: 'crown',
+    routes: [
+      {
+        path: '/admin/company',
+        name: '企業',
+        icon: 'smile',
+        component: './admin/Company/index',
+      },
+      {
+        path: '/admin/user',
+        name: '用戶',
+        icon: 'smile',
+        component: './admin/User/index',
+      },
+    ],
   },
   {
-    path: '/shop',
-    name: '門店/倉庫',
-    icon: 'smile',
-    component: './Shop/index',
+    path: '/companyManager',
+    name: '管理',
+    icon: 'crown',
+    routes: [
+      {
+        path: '/companyManager/user',
+        name: '內部人員',
+        icon: 'smile',
+        component: './companyManager/UserManage/index',
+      },
+      {
+        path: '/companyManager/shop',
+        name: '門店/倉庫',
+        icon: 'smile',
+        component: './companyManager/Shop/index',
+      },
+      {
+        path: '/companyManager/companyBusiness',
+        name: '客戶',
+        icon: 'smile',
+        component: './companyManager/companyBusiness/index',
+      },
+    ],
   },
+  {
+    path: '/companyManagerItem',
+    name: '商品管理',
+    icon: 'crown',
+    routes: [
+      {
+        path: '/companyManagerItem/category',
+        name: '標簽',
+        icon: 'smile',
+        component: './company/Category/index',
+      },
+      {
+        path: '/companyManagerItem/item',
+        name: '商品',
+        icon: 'smile',
+        component: './company/Item/index',
+      },
+      {
+        path: '/companyManagerItem/itemSpecification',
+        name: '商品規格',
+        icon: 'smile',
+        component: './companyManager/ItemSpecification/index',
+      },
+      {
+        path: '/companyManagerItem/itemSpecificationPriceTemplate',
+        name: '價格模版',
+        icon: 'smile',
+        component: './companyManager/ItemSpecificationPriceTemplate/index',
+      },
+    ],
+  },
+  {
+    path: '/checkoutCounter',
+    name: '收銀台',
+    icon: 'smile',
+    component: './CheckoutCounter/index',
+  },
+
   {
     path: '/welcome',
     name: 'welcome',

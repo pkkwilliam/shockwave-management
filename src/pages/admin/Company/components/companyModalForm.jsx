@@ -10,12 +10,24 @@ const CompanyModalForm = (props) => {
     <ModalForm
       destroyOnClose
       form={form}
-      onFinish={(values) => onClickSubmit({ ...values, id: company.id })}
+      onFinish={(values) => onClickSubmit({ ...values, id: company?.id })}
       onVisibleChange={setModalVisible}
       title={company ? '修改企業' : '新增企業'}
       visible={visible}
     >
-      <ProFormText label="企業名稱" placeholder="請輸入企業名稱" required name="name" />
+      <ProFormText
+        label="企業中文名稱"
+        placeholder="請輸入企業中文名稱"
+        required
+        name="chineseName"
+      />
+      <ProFormText
+        label="企業英文名稱"
+        placeholder="請輸入企業英文名稱"
+        required
+        name="englishName"
+      />
+      <ProFormText label="公司前序" placeholder="請輸入企業英文前序" required name="prefix" />
       <ProFormDigit
         label="允許用戶數量"
         placeholder="允許用戶數量"

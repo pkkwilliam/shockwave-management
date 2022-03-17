@@ -3,6 +3,27 @@ import { constructBasicRequest, contructPaginationRequest } from './config';
 const ADMIN_COMPANY_SERVICE_URL = '/admin/company/v1';
 export const ADMIN_PAGINATION_WITH_PARAM = API_URL + ADMIN_COMPANY_SERVICE_URL;
 
+export async function ADMIN_COMPANY_DELETE(companyId) {
+  const requestBody = {
+    authenticated: true,
+    method: 'DELETE',
+    requestUrl: ADMIN_COMPANY_SERVICE_URL + `/${companyId}`,
+  };
+  return contructPaginationRequest(requestBody);
+}
+
+export async function ADMIN_COMPANY_SERACH(nameLike) {
+  const requestBody = {
+    authenticated: true,
+    method: 'GET',
+    params: {
+      nameLike,
+    },
+    requestUrl: ADMIN_COMPANY_SERVICE_URL + '/search_name_like',
+  };
+  return constructBasicRequest(requestBody);
+}
+
 export async function COMPANY_QUERY(params = {}, sort, filter) {
   const requestBody = {
     authenticated: true,
