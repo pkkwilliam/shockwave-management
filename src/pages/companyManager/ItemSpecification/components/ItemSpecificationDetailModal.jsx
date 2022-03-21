@@ -1,14 +1,16 @@
 import React, { useRef, useState } from 'react';
-import {
-  COMPANY_MANAGER_CREATE_ITEM_SPECIFICATION,
-  COMPANY_MANAGER_DELETE_ITEM_SPECIFICATION,
-  COMPANY_MANAGER_GET_ITEM_SPECIFICATION_BY_ITEM_ID,
-  COMPANY_MANAGER_UPDATE_ITEM_SPECIFICATION,
-} from '@/services/hive/itemSpecificationService';
-import { Button, Modal, Table } from 'antd';
+import { COMPANY_MANAGER_ITEM_SPECIFICATION_SERVICE_CONFIG } from '@/services/hive/itemSpecificationService';
+import { Button, Card, Modal, Table } from 'antd';
 import ProTableOperationColumnButtons from '@/commons/proTable/ProTableOperationButtons';
 import { EditableProTable } from '@ant-design/pro-table';
 import { CodeSandboxSquareFilled, PlusOutlined } from '@ant-design/icons';
+import ShopItemSpecificationList from '../../ShopItemSpecificationStock/components/ShopItemSpecificationList';
+import {
+  BEDROCK_CREATE_SERVICE_REQEUST,
+  BEDROCK_DEACTIVATE_SERVICE_REQUEST,
+  BEDROCK_QUERY_LIST_SERVICE_REQUEST,
+  BEDROCK_UPDATE_SERVICE_REQUEST,
+} from '@/services/hive/bedrockTemplateService';
 
 const ItemSpecificationDetailModal = (props) => {
   const tableRef = useRef();
@@ -16,27 +18,39 @@ const ItemSpecificationDetailModal = (props) => {
   const { item, onCancel, visible } = props;
 
   const createItemSpecification = async (request) => {
-    const response = await COMPANY_MANAGER_CREATE_ITEM_SPECIFICATION({ ...request, item });
+    const response = await BEDROCK_CREATE_SERVICE_REQEUST(
+      COMPANY_MANAGER_ITEM_SPECIFICATION_SERVICE_CONFIG,
+      { ...request, item },
+    );
     tableRef.current.reload();
   };
 
   const deleteItemSpecification = async (record) => {
-    await COMPANY_MANAGER_DELETE_ITEM_SPECIFICATION(record.id);
+    await BEDROCK_DEACTIVATE_SERVICE_REQUEST(
+      COMPANY_MANAGER_ITEM_SPECIFICATION_SERVICE_CONFIG,
+      record.id,
+    );
     tableRef.current.reload();
   };
 
   const queryItemSpecification = async () => {
-    const response = await COMPANY_MANAGER_GET_ITEM_SPECIFICATION_BY_ITEM_ID(item?.id);
-    return { data: response, total: response.length, success: true };
+    return BEDROCK_QUERY_LIST_SERVICE_REQUEST(COMPANY_MANAGER_ITEM_SPECIFICATION_SERVICE_CONFIG, {
+      active: true,
+      itemId: item?.id,
+    });
   };
 
   const updateItemSpecification = async (record) => {
-    const response = await COMPANY_MANAGER_UPDATE_ITEM_SPECIFICATION(record);
+    const response = await BEDROCK_UPDATE_SERVICE_REQUEST(
+      COMPANY_MANAGER_ITEM_SPECIFICATION_SERVICE_CONFIG,
+      record,
+    );
     tableRef.current.reload();
   };
 
   const COLUMNS = [
     { title: '規格名稱', dataIndex: 'name' },
+    { title: '庫存', dataIndex: ['stockResponse', 'stock'], editable: false },
     { title: 'SKU', dataIndex: 'sku' },
     { title: '條碼', dataIndex: 'barcode' },
     { title: '價格', dataIndex: 'price', search: false, valueType: 'money', width: 100 },
@@ -100,6 +114,17 @@ const ItemSpecificationDetailModal = (props) => {
           onSave: async (rowKey, data, row) => {
             data.id ? updateItemSpecification(data) : createItemSpecification(data);
           },
+        }}
+        expandable={{
+          expandedRowRender: (record) => {
+            console.log(record);
+            return (
+              <Card>
+                <ShopItemSpecificationList itemSpecification={record} />
+              </Card>
+            );
+          },
+          rowExpandable: (record) => record.name !== 'Not Expandable',
         }}
         recordCreatorProps={{ position: 'bottom', creatorButtonText: '新增一行' }}
         request={queryItemSpecification}

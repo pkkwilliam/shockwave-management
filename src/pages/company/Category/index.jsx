@@ -1,16 +1,17 @@
 import React, { useRef, useState } from 'react';
 import { PageContainer } from '@ant-design/pro-layout';
 import CategoryModalForm from './components/categoryModalForm';
-import {
-  COMPANY_MANAGER_CREATE_CATEGORY,
-  COMPANY_MANAGER_DELETE_CATEGORY,
-  COMPANY_MANAGER_QUERY_CATEGORY,
-  COMPANY_MANAGER_UPDATE_CATEGORY,
-} from '@/services/hive/category';
+import { COMPANY_MANAGER_CATEGORY_SERVICE_CONFIG } from '@/services/hive/category';
 import { Button, Popconfirm } from 'antd';
 import { PlusOutlined } from '@ant-design/icons';
 import ProTable from '@ant-design/pro-table';
 import ProTableOperationColumnButtons from '@/commons/proTable/ProTableOperationButtons';
+import {
+  BEDROCK_CREATE_SERVICE_REQEUST,
+  BEDROCK_DEACTIVATE_SERVICE_REQUEST,
+  BEDROCK_QUERY_PAGINATION_SERVICE_REQUEST,
+  BEDROCK_UPDATE_SERVICE_REQUEST,
+} from '@/services/hive/bedrockTemplateService';
 
 const Category = () => {
   const actionRef = useRef();
@@ -18,18 +19,18 @@ const Category = () => {
   const [modalFormVisible, setModalFormVisible] = useState(false);
 
   const createCategoryServiceRequest = async (category) => {
-    await COMPANY_MANAGER_CREATE_CATEGORY(category);
+    await BEDROCK_CREATE_SERVICE_REQEUST(COMPANY_MANAGER_CATEGORY_SERVICE_CONFIG, category);
     onDataChanged();
     return true;
   };
 
   const deleteCategoryServiceRequest = async (category) => {
-    await COMPANY_MANAGER_DELETE_CATEGORY(category.id);
+    await BEDROCK_DEACTIVATE_SERVICE_REQUEST(COMPANY_MANAGER_CATEGORY_SERVICE_CONFIG, category.id);
     onDataChanged();
   };
 
   const updateCategoryServiceRequest = async (category) => {
-    await COMPANY_MANAGER_UPDATE_CATEGORY(category);
+    await BEDROCK_UPDATE_SERVICE_REQUEST(COMPANY_MANAGER_CATEGORY_SERVICE_CONFIG, category);
     onDataChanged();
     return true;
   };
@@ -60,7 +61,10 @@ const Category = () => {
         actionRef={actionRef}
         columns={COLUMNS}
         request={async (params = {}, sort, filter) => {
-          return COMPANY_MANAGER_QUERY_CATEGORY(params);
+          return BEDROCK_QUERY_PAGINATION_SERVICE_REQUEST(
+            COMPANY_MANAGER_CATEGORY_SERVICE_CONFIG,
+            params,
+          );
         }}
         rowKey="id"
         search={{

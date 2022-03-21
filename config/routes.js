@@ -1,5 +1,9 @@
 export default [
   {
+    path: '/',
+    redirect: '/welcome',
+  },
+  {
     path: '/user',
     layout: false,
     routes: [
@@ -81,9 +85,15 @@ export default [
       },
       {
         path: '/companyManagerItem/itemSpecification',
-        name: '商品規格',
+        name: '規格總覽',
         icon: 'smile',
         component: './companyManager/ItemSpecification/index',
+      },
+      {
+        path: '/companyManagerItem/itemSpecificationStock',
+        name: '庫存總覽',
+        icon: 'smile',
+        component: './shopManager/ItemSpecificationStock/index',
       },
       {
         path: '/companyManagerItem/itemSpecificationPriceTemplate',
@@ -92,6 +102,25 @@ export default [
         component: './companyManager/ItemSpecificationPriceTemplate/index',
       },
     ],
+  },
+  {
+    path: '/shopManager',
+    name: '訂單',
+    icon: 'crown',
+    routes: [
+      {
+        path: '/shopManager/internalOrder',
+        name: '內部訂單',
+        icon: 'smile',
+        component: './shopManager/order/InternalOrder/index',
+      },
+    ],
+  },
+  {
+    path: '/wechatMiniProgram',
+    name: '微信小程序',
+    icon: 'smile',
+    component: './WechatMiniProgram/index',
   },
   {
     path: '/checkoutCounter',
@@ -123,16 +152,6 @@ export default [
         component: './404',
       },
     ],
-  },
-  {
-    name: 'list.table-list',
-    icon: 'table',
-    path: '/list',
-    component: './TableList',
-  },
-  {
-    path: '/',
-    redirect: '/welcome',
   },
   {
     component: './404',

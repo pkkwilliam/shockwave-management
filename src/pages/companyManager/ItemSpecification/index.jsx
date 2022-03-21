@@ -1,16 +1,18 @@
 import React, { useRef, useState } from 'react';
 import ProTableOperationColumnButtons from '@/commons/proTable/ProTableOperationButtons';
-import {
-  COMPANY_MANAGER_DELETE_ITEM_SPECIFICATION,
-  COMPANY_MANAGER_QUERY_ITEM_SPECIFICATION,
-} from '@/services/hive/itemSpecificationService';
+import { COMPANY_MANAGER_ITEM_SPECIFICATION_SERVICE_CONFIG } from '@/services/hive/itemSpecificationService';
 import { PageContainer } from '@ant-design/pro-layout';
 import ProTable from '@ant-design/pro-table';
+import {
+  BEDROCK_DEACTIVATE_SERVICE_REQUEST,
+  BEDROCK_QUERY_PAGINATION_SERVICE_REQUEST,
+} from '@/services/hive/bedrockTemplateService';
 
 const ItemSpecification = () => {
   const tableRef = useRef();
   const queryItemSpecification = async (params, sort, filter) => {
-    return await COMPANY_MANAGER_QUERY_ITEM_SPECIFICATION(
+    return await BEDROCK_QUERY_PAGINATION_SERVICE_REQUEST(
+      COMPANY_MANAGER_ITEM_SPECIFICATION_SERVICE_CONFIG,
       { ...params, active: true },
       sort,
       filter,
@@ -18,7 +20,10 @@ const ItemSpecification = () => {
   };
 
   const deleteItemSpecification = async (record) => {
-    await COMPANY_MANAGER_DELETE_ITEM_SPECIFICATION(record.id);
+    await BEDROCK_DEACTIVATE_SERVICE_REQUEST(
+      COMPANY_MANAGER_ITEM_SPECIFICATION_SERVICE_CONFIG,
+      record.id,
+    );
     tableRef.current.reload();
   };
 

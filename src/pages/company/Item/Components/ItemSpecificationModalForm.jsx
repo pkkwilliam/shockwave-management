@@ -9,14 +9,18 @@ import {
 } from '@ant-design/pro-form';
 import ProCard from '@ant-design/pro-card';
 import { Form } from 'antd';
-import { COMPANY_MANAGER_GET_ITEM_SPECIFICATION_BY_ITEM_ID } from '@/services/hive/itemSpecificationService';
+import { COMPANY_MANAGER_ITEM_SPECIFICATION_SERVICE_CONFIG } from '@/services/hive/itemSpecificationService';
+import { BEDROCK_QUERY_LIST_SERVICE_REQUEST } from '@/services/hive/bedrockTemplateService';
 
 const ItemSpecificationModalForm = (props) => {
   const { item, onFinish, onVisibleChange, visible } = props;
   const [form] = Form.useForm();
 
   const getItemSpecificationByItem = async () => {
-    const response = await COMPANY_MANAGER_GET_ITEM_SPECIFICATION_BY_ITEM_ID(item?.id);
+    const response = await BEDROCK_QUERY_LIST_SERVICE_REQUEST(
+      COMPANY_MANAGER_ITEM_SPECIFICATION_SERVICE_CONFIG,
+      { active: true, itemId: item?.id },
+    );
     form.setFieldsValue({ itemSpecifications: response });
   };
 

@@ -1,16 +1,17 @@
 import React, { useRef, useState } from 'react';
 import { PageContainer } from '@ant-design/pro-layout';
 import ProTable from '@ant-design/pro-table';
-import {
-  COMPANY_MANAGER_CREATE_ITEM_SPECIFICATION_PRICE_TEMPLATE,
-  COMPANY_MANAGER_DELETE_ITEM_SPECIFICATION_PRICE_TEMPLATE,
-  COMPANY_MANAGER_QUERY_ITEM_SPECIFICATION_PRICE_TEMPLATE,
-  COMPANY_MANAGER_UPDATE_ITEM_SPECIFICATION_PRICE_TEMPLATE,
-} from '@/services/hive/itemSpecificationPriceTemplate';
+import { COMPANY_MANAGER_ITEM_SPECIFICATION_PRICE_TEMPLATE_SERVICE_CONFIG } from '@/services/hive/itemSpecificationPriceTemplate';
 import ItemSpecificationPriceTemplateModalForm from './components/ItemSpecificationPriceTemplateModalFormModalForm';
 import { Button } from 'antd';
 import { PlusOutlined } from '@ant-design/icons';
 import ProTableOperationColumnButtons from '@/commons/proTable/ProTableOperationButtons';
+import {
+  BEDROCK_CREATE_SERVICE_REQEUST,
+  BEDROCK_DEACTIVATE_SERVICE_REQUEST,
+  BEDROCK_QUERY_PAGINATION_SERVICE_REQUEST,
+  BEDROCK_UPDATE_SERVICE_REQUEST,
+} from '@/services/hive/bedrockTemplateService';
 
 const ItemSpecificationPriceTemplate = () => {
   const tableRef = useRef();
@@ -18,13 +19,19 @@ const ItemSpecificationPriceTemplate = () => {
   const [modalFormVisible, setModalFormVisible] = useState(false);
 
   const createItemSpecificationPriceTemplateService = async (request) => {
-    const response = await COMPANY_MANAGER_CREATE_ITEM_SPECIFICATION_PRICE_TEMPLATE(request);
+    const response = await BEDROCK_CREATE_SERVICE_REQEUST(
+      COMPANY_MANAGER_ITEM_SPECIFICATION_PRICE_TEMPLATE_SERVICE_CONFIG,
+      request,
+    );
     tableRef.current.reload();
     return true;
   };
 
   const deleteItemSpecificationPriceTemplateService = async (record) => {
-    await COMPANY_MANAGER_DELETE_ITEM_SPECIFICATION_PRICE_TEMPLATE(record.id);
+    await BEDROCK_DEACTIVATE_SERVICE_REQUEST(
+      COMPANY_MANAGER_ITEM_SPECIFICATION_PRICE_TEMPLATE_SERVICE_CONFIG,
+      record.id,
+    );
     tableRef.current.reload();
   };
 
@@ -36,7 +43,8 @@ const ItemSpecificationPriceTemplate = () => {
   };
 
   const queryItemSpecificationPriceTemplateService = async (param, sort, filter) => {
-    return await COMPANY_MANAGER_QUERY_ITEM_SPECIFICATION_PRICE_TEMPLATE(
+    return await BEDROCK_QUERY_PAGINATION_SERVICE_REQUEST(
+      COMPANY_MANAGER_ITEM_SPECIFICATION_PRICE_TEMPLATE_SERVICE_CONFIG,
       { ...param, active: true },
       sort,
       filter,
@@ -44,7 +52,10 @@ const ItemSpecificationPriceTemplate = () => {
   };
 
   const updateItemSpecificationPriceTemplateService = async (request) => {
-    const response = await COMPANY_MANAGER_UPDATE_ITEM_SPECIFICATION_PRICE_TEMPLATE(request);
+    const response = await BEDROCK_UPDATE_SERVICE_REQUEST(
+      COMPANY_MANAGER_ITEM_SPECIFICATION_PRICE_TEMPLATE_SERVICE_CONFIG,
+      request,
+    );
     tableRef.current.reload();
     return true;
   };

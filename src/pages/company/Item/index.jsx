@@ -5,14 +5,18 @@ import { Button, Popconfirm, Tag } from 'antd';
 import { PlusOutlined } from '@ant-design/icons';
 import ItemModalForm from './Components/ItemModalForm';
 import {
-  COMPANY_MANAGER_CREATE_ITEM,
-  COMPANY_MANAGER_DELETE_ITEM,
-  COMPANY_MANAGER_QUERY_ITEM,
-  COMPANY_MANAGER_UPDATE_ITEM,
+  COMPANY_MANAGER_ITEM_SERVICE_CONFIG,
+  COMPANY_MANAGER_QUERY_WITH_STOCK,
 } from '@/services/hive/itemService';
 import ItemSpecificationModalForm from './Components/ItemSpecificationModalForm';
 import { COMPANY_MANAGER_MODIFY_ITEM_SPECIFICATIONS } from '@/services/hive/itemSpecificationService';
 import ItemSpecificationDetailModal from '@/pages/companyManager/ItemSpecification/components/ItemSpecificationDetailModal';
+import {
+  BEDROCK_CREATE_SERVICE_REQEUST,
+  BEDROCK_DEACTIVATE_SERVICE_REQUEST,
+  BEDROCK_QUERY_PAGINATION_SERVICE_REQUEST,
+  BEDROCK_UPDATE_SERVICE_REQUEST,
+} from '@/services/hive/bedrockTemplateService';
 
 const ItemPage = () => {
   const tableRef = useRef();
@@ -22,7 +26,10 @@ const ItemPage = () => {
   const [showSpecificationModalForm, setShowSpecificationModalForm] = useState(false);
 
   const createItemService = async (item) => {
-    const response = await COMPANY_MANAGER_CREATE_ITEM(item);
+    const response = await BEDROCK_CREATE_SERVICE_REQEUST(
+      COMPANY_MANAGER_ITEM_SERVICE_CONFIG,
+      item,
+    );
     tableRef.current.reload();
     setShowModalForm(false);
     return true;
@@ -33,7 +40,10 @@ const ItemPage = () => {
   };
 
   const deleteItemService = async (record) => {
-    const response = await COMPANY_MANAGER_DELETE_ITEM(record.id);
+    const response = await BEDROCK_DEACTIVATE_SERVICE_REQUEST(
+      COMPANY_MANAGER_ITEM_SERVICE_CONFIG,
+      record.id,
+    );
     tableRef.current.reload();
   };
 
@@ -53,11 +63,14 @@ const ItemPage = () => {
   };
 
   const queryItemService = async (params = {}, sort, filter) => {
-    return await COMPANY_MANAGER_QUERY_ITEM({ ...params, active: true }, sort, filter);
+    return await COMPANY_MANAGER_QUERY_WITH_STOCK({ ...params, active: true }, sort, filter);
   };
 
   const updateItemService = async (request) => {
-    const response = await COMPANY_MANAGER_UPDATE_ITEM(request);
+    const response = await BEDROCK_UPDATE_SERVICE_REQUEST(
+      COMPANY_MANAGER_ITEM_SERVICE_CONFIG,
+      request,
+    );
     tableRef.current.reload();
     setCurrentRow();
     setShowModalForm(false);
@@ -75,8 +88,13 @@ const ItemPage = () => {
       title: '標簽',
       dataIndex: 'categories',
       render: (text, record) => {
-        return record.categories.map((category) => <Tag color="blue">{category.name}</Tag>);
+        return record.categories.map((category) => <Tag color="success">{category.name}</Tag>);
       },
+    },
+    {
+      title: '庫存',
+      dataIndex: ['stockResponse', 'stock'],
+      render: (text, record) => <a>{text}</a>,
     },
     { title: '價格', dataIndex: 'price' },
     { title: '備註', dataIndex: 'remark' },

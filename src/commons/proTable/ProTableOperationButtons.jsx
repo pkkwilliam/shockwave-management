@@ -5,11 +5,16 @@ import React from 'react';
 //   return ;
 // };
 
-const ProTableOperationColumnButtons = (onClickEdit, onClickDelete) => {
+const ProTableOperationColumnButtons = (
+  onClickEdit,
+  onClickDelete,
+  inFront = (text, record) => null,
+) => {
   return {
     title: '操作',
     valueType: 'option',
     render: (text, record, _, action) => [
+      inFront(),
       <a key="edit" onClick={() => onClickEdit(record, _, action)}>
         修改
       </a>,

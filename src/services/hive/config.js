@@ -24,5 +24,6 @@ export async function contructPaginationRequest(requestInfo, options) {
     ...response,
     success: true,
     data: response.content,
+    total: response.totalElements,
   }));
 }

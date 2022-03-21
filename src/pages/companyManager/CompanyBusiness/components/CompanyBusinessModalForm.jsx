@@ -5,6 +5,7 @@ import ProFormCountryCodeSelect from '@/commons/proForm/ProFormCountryCodeSelect
 import { Form } from 'antd';
 import ProFormItemSpecificationPriceTemplate from '@/commons/proForm/ProFormItemSpecificationPriceTemplate';
 import { onModalFormVisibleChange } from '@/commons/proForm/proformUtil';
+import CompanyBusinessDeliveryAddressList from './CompanyBusinessDeliveryAddressList';
 
 const CompanyBusinessModalForm = (props) => {
   const [form] = Form.useForm();
@@ -21,15 +22,22 @@ const CompanyBusinessModalForm = (props) => {
       visible={visible}
     >
       <ProFormDigit disabled hidden label="ID" name="id" />
-      <ProFormText label="企業名稱" name="name" />
+      <ProFormText
+        label="企業名稱"
+        name="name"
+        rules={[{ required: true, message: '請輸入企業名稱' }]}
+      />
       <ProFormItemSpecificationPriceTemplate
         label="價格模版"
         name={['itemSpecificationPriceTemplate', 'id']}
       />
       <ProFormCompanyBusinessPaymentTypeSelect label="支付方式" name="companyBusinessPaymentType" />
-      <ProFormGroup title="外部下單用戶">
-        <ProFormCountryCodeSelect name={['businessUser', 'countryCode']} />
-        <ProFormDigit name={['businessUser', 'smsNumber']} />
+      <ProFormGroup title="外部下單用戶(客戶可由微信小程序或網頁直接下單)">
+        <ProFormCountryCodeSelect label="區號" name={['businessUser', 'countryCode']} />
+        <ProFormDigit label="電話" name={['businessUser', 'smsNumber']} />
+      </ProFormGroup>
+      <ProFormGroup title="送貨地址">
+        <CompanyBusinessDeliveryAddressList name="deliveryAddress" />
       </ProFormGroup>
       <ProFormText label="備註" name="remark" />
     </ModalForm>

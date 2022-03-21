@@ -1,11 +1,6 @@
 import React, { useRef, useState } from 'react';
 import { PageContainer } from '@ant-design/pro-layout';
-import {
-  COMPANY_MANAGER_CREATE_SHOP,
-  COMPANY_MANAGER_DELETE_SHOP,
-  COMPANY_MANAGER_QUERY_SHOP,
-  COMPANY_MANAGER_UPDATE_SHOP,
-} from '@/services/hive/shop';
+import { COMPANY_MANAGER_SHOP_SERVICE_CONFIG } from '@/services/hive/shop';
 import { Button, Popconfirm } from 'antd';
 import { PlusOutlined } from '@ant-design/icons';
 import ProTable from '@ant-design/pro-table';
@@ -13,6 +8,12 @@ import ProTable from '@ant-design/pro-table';
 import ShopModalForm from './components/shopModalForm';
 import { SHOP_TYPES, SHOP_TYPE_REGULAR } from '@/enum/shopType';
 import { convertEnumsToProTableValueEnum } from '@/enum/enumUtil';
+import {
+  BEDROCK_CREATE_SERVICE_REQEUST,
+  BEDROCK_DEACTIVATE_SERVICE_REQUEST,
+  BEDROCK_QUERY_PAGINATION_SERVICE_REQUEST,
+  BEDROCK_UPDATE_SERVICE_REQUEST,
+} from '@/services/hive/bedrockTemplateService';
 
 const Category = () => {
   const actionRef = useRef();
@@ -29,19 +30,22 @@ const Category = () => {
   };
 
   const createShopServiceRequest = async (shop) => {
-    await COMPANY_MANAGER_CREATE_SHOP({ ...shop, shopType: SHOP_TYPE_REGULAR.key });
+    await BEDROCK_CREATE_SERVICE_REQEUST(COMPANY_MANAGER_SHOP_SERVICE_CONFIG, {
+      ...shop,
+      shopType: SHOP_TYPE_REGULAR.key,
+    });
     setModalVisible(false);
     onDataChanged();
     return TextTrackCueList;
   };
 
   const deleteShopServiceRequest = async (shop) => {
-    await COMPANY_MANAGER_DELETE_SHOP(shop.id);
+    await BEDROCK_DEACTIVATE_SERVICE_REQUEST(COMPANY_MANAGER_SHOP_SERVICE_CONFIG, shop.id);
     onDataChanged();
   };
 
   const updateShopServiceRequest = async (shop) => {
-    await COMPANY_MANAGER_UPDATE_SHOP(shop);
+    await BEDROCK_UPDATE_SERVICE_REQUEST(COMPANY_MANAGER_SHOP_SERVICE_CONFIG, shop);
     setModalVisible(false);
     onDataChanged();
     return true;
@@ -95,7 +99,10 @@ const Category = () => {
         actionRef={actionRef}
         columns={COLUMNS}
         request={async (params = {}, sort, filter) => {
-          return COMPANY_MANAGER_QUERY_SHOP(params);
+          return BEDROCK_QUERY_PAGINATION_SERVICE_REQUEST(
+            COMPANY_MANAGER_SHOP_SERVICE_CONFIG,
+            params,
+          );
         }}
         rowKey="id"
         search={{

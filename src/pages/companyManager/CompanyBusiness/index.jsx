@@ -1,18 +1,19 @@
 import React, { useRef, useState } from 'react';
 import { PageContainer } from '@ant-design/pro-layout';
 import ProTable from '@ant-design/pro-table';
-import {
-  COMPANY_MANAGER_CREATE_COMPANY_BUSINESS,
-  COMPANY_MANAGER_DELETE_COMPANY_BUSINESS,
-  COMPANY_MANAGER_QUERY_COMPANY_BUSINESS,
-  COMPANY_MANAGER_UPDATE_COMPANY_BUSINESS,
-} from '@/services/hive/companyBusinessService';
+import { COMPANY_MANAGER_COMPANY_BUSINESS_SERVICE_CONFIG } from '@/services/hive/companyBusinessService';
 import CompanyBusinessModalForm from './components/CompanyBusinessModalForm';
 import { Button } from 'antd';
 import { PlusOutlined } from '@ant-design/icons';
 import ProTableOperationColumnButtons from '@/commons/proTable/ProTableOperationButtons';
 import { COMPANY_BUSINESS_PAYMENT_TYPES } from '@/enum/companyBusinessPaymentType';
 import { getValueEnum } from '@/enum/enumUtil';
+import {
+  BEDROCK_CREATE_SERVICE_REQEUST,
+  BEDROCK_DEACTIVATE_SERVICE_REQUEST,
+  BEDROCK_QUERY_PAGINATION_SERVICE_REQUEST,
+  BEDROCK_UPDATE_SERVICE_REQUEST,
+} from '@/services/hive/bedrockTemplateService';
 
 const CompanyBusiness = () => {
   const tableRef = useRef();
@@ -20,13 +21,16 @@ const CompanyBusiness = () => {
   const [modalFormVisible, setModalFormVisible] = useState(false);
 
   const createCompanyBusinessService = async (request) => {
-    await COMPANY_MANAGER_CREATE_COMPANY_BUSINESS(request);
+    await BEDROCK_CREATE_SERVICE_REQEUST(COMPANY_MANAGER_COMPANY_BUSINESS_SERVICE_CONFIG, request);
     tableRef.current.reload();
     return true;
   };
 
   const deleteCompanyBusinessService = async (record) => {
-    const response = await COMPANY_MANAGER_DELETE_COMPANY_BUSINESS(record.id);
+    const response = await BEDROCK_DEACTIVATE_SERVICE_REQUEST(
+      COMPANY_MANAGER_COMPANY_BUSINESS_SERVICE_CONFIG,
+      record.id,
+    );
     tableRef.current.reload();
   };
 
@@ -38,11 +42,19 @@ const CompanyBusiness = () => {
   };
 
   const queryCompanyBusinessService = async (params, sort, filter) => {
-    return await COMPANY_MANAGER_QUERY_COMPANY_BUSINESS({ ...params, active: true }, sort, filter);
+    return await BEDROCK_QUERY_PAGINATION_SERVICE_REQUEST(
+      COMPANY_MANAGER_COMPANY_BUSINESS_SERVICE_CONFIG,
+      { ...params, active: true },
+      sort,
+      filter,
+    );
   };
 
   const updateCompanyBusinessService = async (request) => {
-    const response = await COMPANY_MANAGER_UPDATE_COMPANY_BUSINESS(request);
+    const response = await BEDROCK_UPDATE_SERVICE_REQUEST(
+      COMPANY_MANAGER_COMPANY_BUSINESS_SERVICE_CONFIG,
+      request,
+    );
     tableRef.current.reload();
     return true;
   };
@@ -57,10 +69,14 @@ const CompanyBusiness = () => {
       valueEnum: getValueEnum(COMPANY_BUSINESS_PAYMENT_TYPES),
     },
     { title: '備註', dataIndex: 'remark', search: false },
-    ProTableOperationColumnButtons((record) => {
-      setCurrentRow(record);
-      setModalFormVisible(true);
-    }, deleteCompanyBusinessService),
+    ProTableOperationColumnButtons(
+      (record) => {
+        setCurrentRow(record);
+        setModalFormVisible(true);
+      },
+      deleteCompanyBusinessService,
+      (text, record) => <a>送貨地址</a>,
+    ),
   ];
 
   return (
