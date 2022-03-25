@@ -6,6 +6,9 @@ import Footer from '@/components/Footer';
 import { BookOutlined, LinkOutlined } from '@ant-design/icons';
 import defaultSettings from '../config/defaultSettings';
 import { GET_USER_PROFILE } from './services/hive/userProfile';
+import { PUBLIC_GET_COMPANY_CONFIG_BY_COMPANY_ID } from './services/hive/companyConfigService';
+import { useModel } from 'umi';
+
 const isDev = process.env.NODE_ENV === 'development';
 const loginPath = '/user/login';
 /** 获取用户信息比较慢的时候会展示一个 loading */
@@ -20,19 +23,20 @@ export const initialStateConfig = {
 export async function getInitialState() {
   const fetchUserInfo = async () => {
     try {
-      const data = await GET_USER_PROFILE();
-      return data;
+      const userProfile = await GET_USER_PROFILE();
+      return userProfile;
     } catch (error) {
       history.push(loginPath);
     }
-
     return undefined;
   }; // 如果是登录页面，不执行
 
   if (history.location.pathname !== loginPath) {
     const currentUser = await fetchUserInfo();
+    const companyConfig = await PUBLIC_GET_COMPANY_CONFIG_BY_COMPANY_ID(currentUser.company.id);
     return {
       fetchUserInfo,
+      companyConfig,
       currentUser,
       settings: defaultSettings,
     };

@@ -61,10 +61,10 @@ const Category = () => {
         actionRef={actionRef}
         columns={COLUMNS}
         request={async (params = {}, sort, filter) => {
-          return BEDROCK_QUERY_PAGINATION_SERVICE_REQUEST(
-            COMPANY_MANAGER_CATEGORY_SERVICE_CONFIG,
-            params,
-          );
+          return BEDROCK_QUERY_PAGINATION_SERVICE_REQUEST(COMPANY_MANAGER_CATEGORY_SERVICE_CONFIG, {
+            ...params,
+            active: true,
+          });
         }}
         rowKey="id"
         search={{

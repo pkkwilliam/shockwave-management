@@ -42,6 +42,19 @@ export default [
     ],
   },
   {
+    path: '/companyAdmin',
+    name: '行政管理',
+    icon: 'crown',
+    routes: [
+      {
+        path: '/companyAdmin/companyConfig',
+        name: '系統設定',
+        icon: 'smile',
+        component: './companyAdmin/CompanyConfig/index',
+      },
+    ],
+  },
+  {
     path: '/companyManager',
     name: '管理',
     icon: 'crown',

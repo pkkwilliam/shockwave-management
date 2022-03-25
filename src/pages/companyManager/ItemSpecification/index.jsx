@@ -7,6 +7,8 @@ import {
   BEDROCK_DEACTIVATE_SERVICE_REQUEST,
   BEDROCK_QUERY_PAGINATION_SERVICE_REQUEST,
 } from '@/services/hive/bedrockTemplateService';
+import { getValueEnum } from '@/enum/enumUtil';
+import { ITEM_SPECIFICATION_STATUSES } from '@/enum/itemSpecificationStatus';
 
 const ItemSpecification = () => {
   const tableRef = useRef();
@@ -30,6 +32,11 @@ const ItemSpecification = () => {
   const COLUMNS = [
     { title: '商品', dataIndex: ['item', 'name'] },
     { title: '規格名稱', dataIndex: 'name' },
+    {
+      title: '狀態',
+      dataIndex: 'itemSpecificationStatus',
+      valueEnum: getValueEnum(ITEM_SPECIFICATION_STATUSES),
+    },
     { title: 'SKU', dataIndex: 'sku' },
     { title: '條碼', dataIndex: 'barcode' },
     { title: '價格', dataIndex: 'price', search: false },

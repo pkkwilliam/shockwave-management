@@ -1,61 +1,60 @@
 import React, { useState } from 'react';
-import ProFormItemAndItemSpecificationLinkageSelect from '@/commons/proForm/ProFormItemAndItemSpecificationLinkageSelect';
-import { COMPANY_STAFF_GET_TEMPLATE_PRICE } from '@/services/hive/itemSpecificationPriceTemplate';
-
-import {
-  ProFormDependency,
-  ProFormDigit,
-  ProFormGroup,
-  ProFormList,
-  ProFormMoney,
-} from '@ant-design/pro-form';
+import { ProFormDependency, ProFormDigit, ProFormGroup, ProFormList } from '@ant-design/pro-form';
+import ProFormItemSelect from '@/commons/proForm/ProFormItemSelect';
+import { values } from 'lodash';
+import ProFormPreOrderItemSpecificationSelection from '@/commons/proForm/ProFormPreOrderItemSpecificationSelect';
 
 const OrderItemInfoList = (props) => {
-  const [priceTemplates, setPriceTemplates] = useState([]);
-  const queryItemSpecificationPrice = async (companyBusiness, itemSpecification, index) => {
-    console.log(companyBusiness, itemSpecification);
-    if (!companyBusiness?.id || !itemSpecification?.id) {
-      return;
-    }
-    const response = await COMPANY_STAFF_GET_TEMPLATE_PRICE(
-      companyBusiness.id,
-      itemSpecification.id,
-    );
-    let updatePriceTemplate = [...priceTemplates];
-    updatePriceTemplate[index] = response;
-    setPriceTemplates(updatePriceTemplate);
-  };
+  const [currentRows, setCurrentRows] = useState([]);
 
   return (
-    <ProFormList {...props}>
-      {(field) => {
+    <ProFormDependency name={['companyBusiness']}>
+      {({ companyBusiness }) => {
         return (
-          <ProFormGroup>
-            <ProFormItemAndItemSpecificationLinkageSelect {...props} />
-            <ProFormDependency name={['companyBusiness']} ignoreFormListField>
-              {({ companyBusiness }) => {
-                return (
-                  <ProFormDependency name={['itemSpecification']}>
-                    {({ itemSpecification }) => {
-                      queryItemSpecificationPrice(companyBusiness, itemSpecification, field.key);
+          <ProFormList {...props}>
+            {({ key, name }) => {
+              return (
+                <ProFormGroup>
+                  <ProFormItemSelect label="商品" name={['item', 'id']} width="sm" />
+                  <ProFormDependency name={['item']}>
+                    {({ item }, form) => {
+                      if (
+                        item?.id !== currentRows[key]?.item?.id &&
+                        currentRows[key]?.item?.id !== undefined
+                      ) {
+                        let { orderItemInfos } = form.getFieldsValue();
+                        orderItemInfos[key] = {
+                          ...orderItemInfos[key],
+                          itemSpecification: undefined,
+                          quantity: undefined,
+                          price: undefined,
+                        };
+                        values.orderItemInfos = orderItemInfos;
+                        form.setFieldsValue(values);
+                        setCurrentRows(orderItemInfos);
+                      }
                       return (
-                        <ProFormMoney
-                          disabled
-                          label="價格"
-                          value={priceTemplates[field.key]?.price}
+                        <ProFormPreOrderItemSpecificationSelection
+                          companyBusiness={companyBusiness}
+                          dependencies={['item']}
+                          item={item}
+                          includeStock
+                          label="規格"
+                          name={['itemSpecification', 'id']}
+                          showSearch
+                          width="lg"
                         />
                       );
                     }}
                   </ProFormDependency>
-                );
-              }}
-            </ProFormDependency>
-
-            <ProFormDigit label="數量" name="quantity" />
-          </ProFormGroup>
+                  <ProFormDigit label="數量" name="quantity" width="xs" />
+                </ProFormGroup>
+              );
+            }}
+          </ProFormList>
         );
       }}
-    </ProFormList>
+    </ProFormDependency>
   );
 };
 

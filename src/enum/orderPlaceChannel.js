@@ -9,7 +9,7 @@ export const ORDER_PLACE_CHANNEL_EXTERNAL_BUSINESS = {
 };
 export const ORDER_PLACE_CHANNEL_EXTERNAL_CUSTOMER = {
   key: 'EXTERNAL_CUSTOMER',
-  label: '外部散客(微信小程序)',
+  label: '外部客戶(微信小程序)',
 };
 
 export const ORDER_PLACE_CHANNELS = [

@@ -50,6 +50,11 @@ const ShopModalForm = (props) => {
       <ProFormText label="電話" placeholder="請輸入電話" name={['address', 'phoneNumber']} />
       <ProFormText label="街道" placeholder="請輸入街道" name={['address', 'street']} />
       <ProFormText label="單位" placeholder="請輸入單位" name={['address', 'unit']} />
+      <ProFormText
+        label="打印機SN"
+        placeholder="請輸入小票打印机SN"
+        name={['printerSerialNumber']}
+      />
     </ModalForm>
   );
 };

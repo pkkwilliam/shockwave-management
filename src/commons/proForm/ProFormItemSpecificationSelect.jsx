@@ -2,7 +2,6 @@ import React from 'react';
 import { ProFormSelect } from '@ant-design/pro-form';
 import { COMPANY_MANAGER_ITEM_SPECIFICATION_SERVICE_CONFIG } from '@/services/hive/itemSpecificationService';
 import { getEnumOjbectsWithValueAsKey } from '@/enum/enumUtil';
-import { getValueFromObject } from '../utils/ProComponentsUtil';
 import { BEDROCK_QUERY_PAGINATION_SERVICE_REQUEST } from '@/services/hive/bedrockTemplateService';
 
 const ProFormItemSpecificationSelect = (props) => {

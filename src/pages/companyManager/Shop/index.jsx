@@ -14,6 +14,8 @@ import {
   BEDROCK_QUERY_PAGINATION_SERVICE_REQUEST,
   BEDROCK_UPDATE_SERVICE_REQUEST,
 } from '@/services/hive/bedrockTemplateService';
+import ProTableOperationColumnButtons from '@/commons/proTable/ProTableOperationButtons';
+import { COMPANY_STAFF_TEST_SHOP_PRINTER } from '@/services/hive/printerService';
 
 const Category = () => {
   const actionRef = useRef();
@@ -44,6 +46,10 @@ const Category = () => {
     onDataChanged();
   };
 
+  const onClickTestPrinter = async (record) => {
+    COMPANY_STAFF_TEST_SHOP_PRINTER(record.id);
+  };
+
   const updateShopServiceRequest = async (shop) => {
     await BEDROCK_UPDATE_SERVICE_REQUEST(COMPANY_MANAGER_SHOP_SERVICE_CONFIG, shop);
     setModalVisible(false);
@@ -67,30 +73,15 @@ const Category = () => {
     { title: '電話', dataIndex: ['address', 'phoneNumber'], search: false, valueType: 'number' },
     { title: '街道', dataIndex: ['address', 'street'], search: false, valueType: 'text' },
     { title: '單位', dataIndex: ['address', 'unit'], search: false, valueType: 'text' },
-    {
-      title: '操作',
-      valueType: 'option',
-      render: (text, record, _, action) => [
-        <a
-          key="edit"
-          onClick={() => {
-            setCurrentRow(record);
-            setModalVisible(true);
-          }}
-        >
-          修改
-        </a>,
-        <Popconfirm
-          cancelText="取消"
-          key="delete"
-          onConfirm={() => deleteShopServiceRequest(record)}
-          okText="確定"
-          title="確認刪除此門店/倉庫?"
-        >
-          <a>删除</a>
-        </Popconfirm>,
-      ],
-    },
+    { title: '打印機SN', dataIndex: ['printerSerialNumber'], search: false, valueType: 'text' },
+    ProTableOperationColumnButtons(
+      () => {
+        setCurrentRow(record);
+        setModalVisible(true);
+      },
+      deleteShopServiceRequest,
+      (text, record) => <a onClick={() => onClickTestPrinter(record)}>測試打印機</a>,
+    ),
   ];
 
   return (
@@ -99,10 +90,10 @@ const Category = () => {
         actionRef={actionRef}
         columns={COLUMNS}
         request={async (params = {}, sort, filter) => {
-          return BEDROCK_QUERY_PAGINATION_SERVICE_REQUEST(
-            COMPANY_MANAGER_SHOP_SERVICE_CONFIG,
-            params,
-          );
+          return BEDROCK_QUERY_PAGINATION_SERVICE_REQUEST(COMPANY_MANAGER_SHOP_SERVICE_CONFIG, {
+            ...params,
+            active: true,
+          });
         }}
         rowKey="id"
         search={{

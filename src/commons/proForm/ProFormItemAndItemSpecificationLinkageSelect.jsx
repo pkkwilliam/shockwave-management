@@ -5,9 +5,9 @@ import ProFormItemSpecificationSelect from './ProFormItemSpecificationSelect';
 
 const ProFormItemAndItemSpecificationLinkageSelect = (props) => {
   return (
-    <ProFormGroup>
+    <>
       <ProFormDependency name={['item']}>
-        {({ item }) => <ProFormItemSelect disabled={item} label="商品" name={['item', 'id']} />}
+        {({ item }) => <ProFormItemSelect label="商品" name={['item', 'id']} />}
       </ProFormDependency>
       <ProFormDependency name={['item']}>
         {({ item }, form) => {
@@ -21,7 +21,7 @@ const ProFormItemAndItemSpecificationLinkageSelect = (props) => {
           );
         }}
       </ProFormDependency>
-    </ProFormGroup>
+    </>
   );
 };
 

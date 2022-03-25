@@ -11,6 +11,8 @@ import {
   BEDROCK_QUERY_LIST_SERVICE_REQUEST,
   BEDROCK_UPDATE_SERVICE_REQUEST,
 } from '@/services/hive/bedrockTemplateService';
+import { ITEM_SPECIFICATION_STATUSES } from '@/enum/itemSpecificationStatus';
+import { getValueEnum } from '@/enum/enumUtil';
 
 const ItemSpecificationDetailModal = (props) => {
   const tableRef = useRef();
@@ -36,7 +38,7 @@ const ItemSpecificationDetailModal = (props) => {
   const queryItemSpecification = async () => {
     return BEDROCK_QUERY_LIST_SERVICE_REQUEST(COMPANY_MANAGER_ITEM_SPECIFICATION_SERVICE_CONFIG, {
       active: true,
-      itemId: item?.id,
+      'item.id': item?.id,
     });
   };
 
@@ -50,6 +52,11 @@ const ItemSpecificationDetailModal = (props) => {
 
   const COLUMNS = [
     { title: '規格名稱', dataIndex: 'name' },
+    {
+      title: '狀態',
+      dataIndex: 'itemSpecificationStatus',
+      valueEnum: getValueEnum(ITEM_SPECIFICATION_STATUSES),
+    },
     { title: '庫存', dataIndex: ['stockResponse', 'stock'], editable: false },
     { title: 'SKU', dataIndex: 'sku' },
     { title: '條碼', dataIndex: 'barcode' },

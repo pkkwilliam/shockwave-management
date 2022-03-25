@@ -14,7 +14,7 @@ const ProTableOperationColumnButtons = (
     title: '操作',
     valueType: 'option',
     render: (text, record, _, action) => [
-      inFront(),
+      inFront(text, record),
       <a key="edit" onClick={() => onClickEdit(record, _, action)}>
         修改
       </a>,
