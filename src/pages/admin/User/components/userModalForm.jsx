@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { ADMIN_COMPANY_SERACH } from '@/services/hive/company';
+import { ADMIN_COMPANY_SERACH } from '@/services/hive/companyService';
 import { ModalForm, ProFormCheckbox, ProFormSelect, ProFormText } from '@ant-design/pro-form';
 import { Form } from 'antd';
 import {

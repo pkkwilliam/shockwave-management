@@ -6,29 +6,29 @@ const Footer = () => {
   const intl = useIntl();
   const defaultMessage = intl.formatMessage({
     id: 'app.copyright.produced',
-    defaultMessage: '蚂蚁集团体验技术部出品',
+    defaultMessage: '源代碼科技創意實驗室',
   });
   const currentYear = new Date().getFullYear();
   return (
     <DefaultFooter
       copyright={`${currentYear} ${defaultMessage}`}
       links={[
+        // {
+        //   key: '源代碼科技',
+        //   title: '源代碼科技',
+        //   href: 'https://pro.ant.design',
+        //   blankTarget: true,
+        // },
+        // {
+        //   key: 'github',
+        //   title: <GithubOutlined />,
+        //   href: 'https://github.com/pkkwilliam',
+        //   blankTarget: true,
+        // },
         {
-          key: 'Ant Design Pro',
-          title: 'Ant Design Pro',
-          href: 'https://pro.ant.design',
-          blankTarget: true,
-        },
-        {
-          key: 'github',
-          title: <GithubOutlined />,
-          href: 'https://github.com/ant-design/ant-design-pro',
-          blankTarget: true,
-        },
-        {
-          key: 'Ant Design',
-          title: 'Ant Design',
-          href: 'https://ant.design',
+          key: 'Bitcode Tech',
+          title: 'Bitcode Tech',
+          href: 'https://bitcode.mo',
           blankTarget: true,
         },
       ]}

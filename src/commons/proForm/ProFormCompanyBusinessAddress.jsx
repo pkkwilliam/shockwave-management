@@ -14,7 +14,7 @@ const ProFormCompanyBusinessAddressSelect = (props) => {
       label: `${address.street} ${address.unit}`,
     }));
   };
-  return <ProFormSelect disabled={!props.companyBusiness?.id} request={query} {...props} />;
+  return <ProFormSelect request={query} {...props} />;
 };
 
 export default ProFormCompanyBusinessAddressSelect;

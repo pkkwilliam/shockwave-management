@@ -19,13 +19,22 @@ export async function BEDROCK_DEACTIVATE_SERVICE_REQUEST(serviceConfig, entityId
   return constructBasicRequest(request);
 }
 
+export async function BEDROCK_GET_BY_ID_SERVICE_REQUEST(serviceConfig, id) {
+  const request = {
+    authenticated: serviceConfig.requireAuth,
+    method: 'GET',
+    requestUrl: serviceConfig.serviceUrl + `/${id}`,
+  };
+  return constructBasicRequest(request);
+}
+
 export async function BEDROCK_QUERY_LIST_SERVICE_REQUEST(serviceConfig, params, sort, filter) {
   const request = {
     authenticated: serviceConfig.requireAuth,
     method: 'GET',
     params: {
+      active: true,
       ...params,
-      pageRequest: params.current - 1,
     },
     requestUrl: serviceConfig.serviceUrl + '/query_list',
   };

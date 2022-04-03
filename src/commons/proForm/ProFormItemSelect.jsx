@@ -17,11 +17,12 @@ const ProFormItemSelect = (props) => {
     const transformedResponse = response.content.map((item) => ({
       label: item.name,
       value: item.id,
+      data: item,
     }));
     return transformedResponse;
   };
 
-  return <ProFormSelect request={queryItem} showSearch {...props} />;
+  return <ProFormSelect request={queryItem} {...props} />;
 };
 
 export default ProFormItemSelect;

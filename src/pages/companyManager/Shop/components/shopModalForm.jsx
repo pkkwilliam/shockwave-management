@@ -1,10 +1,12 @@
 import React from 'react';
 import { Form } from 'antd';
-import { ModalForm, ProFormDigit, ProFormText } from '@ant-design/pro-form';
+import { ModalForm, ProFormDigit, ProFormGroup, ProFormText } from '@ant-design/pro-form';
 import { ADDRESS_TYPE_SHOP } from '@/enum/addressType';
 import ProFormShopTypeSelect from '@/commons/proForm/ProFormShopTypeSelect';
 import ProFormCountryCodeSelect from '@/commons/proForm/ProFormCountryCodeSelect';
 import { onModalFormVisibleChange } from '@/commons/proForm/proformUtil';
+import ProFormPrinterSelect from '@/commons/proForm/ProFormPrinterSelect';
+import ProFormCompanyPrinterSelect from '@/commons/proForm/ProFormCompanyPrinterSelect';
 
 const ShopModalForm = (props) => {
   const [form] = Form.useForm();
@@ -50,11 +52,7 @@ const ShopModalForm = (props) => {
       <ProFormText label="電話" placeholder="請輸入電話" name={['address', 'phoneNumber']} />
       <ProFormText label="街道" placeholder="請輸入街道" name={['address', 'street']} />
       <ProFormText label="單位" placeholder="請輸入單位" name={['address', 'unit']} />
-      <ProFormText
-        label="打印機SN"
-        placeholder="請輸入小票打印机SN"
-        name={['printerSerialNumber']}
-      />
+      <ProFormCompanyPrinterSelect label="默認打印機" name={['defaultPrinter', 'id']} />
     </ModalForm>
   );
 };

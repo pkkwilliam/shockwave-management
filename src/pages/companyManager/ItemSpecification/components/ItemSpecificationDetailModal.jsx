@@ -1,9 +1,7 @@
 import React, { useRef, useState } from 'react';
 import { COMPANY_MANAGER_ITEM_SPECIFICATION_SERVICE_CONFIG } from '@/services/hive/itemSpecificationService';
-import { Button, Card, Modal, Table } from 'antd';
-import ProTableOperationColumnButtons from '@/commons/proTable/ProTableOperationButtons';
+import { Button, Card, Form, Modal, Table, Upload } from 'antd';
 import { EditableProTable } from '@ant-design/pro-table';
-import { CodeSandboxSquareFilled, PlusOutlined } from '@ant-design/icons';
 import ShopItemSpecificationList from '../../ShopItemSpecificationStock/components/ShopItemSpecificationList';
 import {
   BEDROCK_CREATE_SERVICE_REQEUST,
@@ -13,9 +11,11 @@ import {
 } from '@/services/hive/bedrockTemplateService';
 import { ITEM_SPECIFICATION_STATUSES } from '@/enum/itemSpecificationStatus';
 import { getValueEnum } from '@/enum/enumUtil';
+import ProFormMediaUpload from '@/commons/proForm/ProFormMediaUpload';
 
 const ItemSpecificationDetailModal = (props) => {
   const tableRef = useRef();
+  const [form] = Form.useForm();
   const [editableKeys, setEditableRowKeys] = useState([]);
   const { item, onCancel, visible } = props;
 
@@ -51,6 +51,12 @@ const ItemSpecificationDetailModal = (props) => {
   };
 
   const COLUMNS = [
+    {
+      title: '圖片',
+      dataIndex: ['imageUrl'],
+      valueType: 'image',
+      renderFormItem: () => <Upload action={'hello'} />,
+    },
     { title: '規格名稱', dataIndex: 'name' },
     {
       title: '狀態',
@@ -109,9 +115,10 @@ const ItemSpecificationDetailModal = (props) => {
   ];
 
   return (
-    <Modal destroyOnClose onCancel={onCancel} title={item?.name} visible={visible} width={1500}>
+    <Modal destroyOnClose onCancel={onCancel} title={item?.name} visible={visible} width={1800}>
       <EditableProTable
         actionRef={tableRef}
+        form={form}
         columns={COLUMNS}
         editable={{
           type: 'multiple',

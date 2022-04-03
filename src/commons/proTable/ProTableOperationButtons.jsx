@@ -9,6 +9,7 @@ const ProTableOperationColumnButtons = (
   onClickEdit,
   onClickDelete,
   inFront = (text, record) => null,
+  inRear = (text, record) => null,
 ) => {
   return {
     title: '操作',

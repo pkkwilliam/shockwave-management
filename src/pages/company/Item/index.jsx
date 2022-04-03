@@ -5,6 +5,7 @@ import { Button, Popconfirm, Tag } from 'antd';
 import { PlusOutlined } from '@ant-design/icons';
 import ItemModalForm from './Components/ItemModalForm';
 import {
+  COMPANY_ITEM_SERVICE_CONFIG,
   COMPANY_MANAGER_ITEM_SERVICE_CONFIG,
   COMPANY_MANAGER_QUERY_WITH_STOCK,
 } from '@/services/hive/itemService';
@@ -17,6 +18,8 @@ import {
   BEDROCK_QUERY_PAGINATION_SERVICE_REQUEST,
   BEDROCK_UPDATE_SERVICE_REQUEST,
 } from '@/services/hive/bedrockTemplateService';
+import ProTableOperationColumnButtons from '@/commons/proTable/ProTableOperationButtons';
+import ProFormCategorySelect from '@/commons/proForm/ProFormCategorySelect';
 
 const ItemPage = () => {
   const tableRef = useRef();
@@ -63,7 +66,11 @@ const ItemPage = () => {
   };
 
   const queryItemService = async (params = {}, sort, filter) => {
-    return await COMPANY_MANAGER_QUERY_WITH_STOCK({ ...params, active: true }, sort, filter);
+    // return await COMPANY_MANAGER_QUERY_WITH_STOCK({ ...params, active: true }, sort, filter);
+    return await BEDROCK_QUERY_PAGINATION_SERVICE_REQUEST(COMPANY_ITEM_SERVICE_CONFIG, {
+      ...params,
+      active: true,
+    });
   };
 
   const updateItemService = async (request) => {
@@ -73,11 +80,15 @@ const ItemPage = () => {
     );
     tableRef.current.reload();
     setCurrentRow();
-    setShowModalForm(false);
     return true;
   };
 
   const COLUMNS = [
+    {
+      title: '圖片',
+      dataIndex: ['imageUrl'],
+      valueType: 'image',
+    },
     {
       title: '品名',
       dataIndex: 'name',
@@ -87,9 +98,11 @@ const ItemPage = () => {
     {
       title: '標簽',
       dataIndex: 'categories',
+      key: 'categoryId',
       render: (text, record) => {
         return record.categories.map((category) => <Tag color="success">{category.name}</Tag>);
       },
+      renderFormItem: (text, record) => <ProFormCategorySelect />,
     },
     {
       title: '庫存',
@@ -98,25 +111,10 @@ const ItemPage = () => {
     },
     { title: '價格', dataIndex: 'price' },
     { title: '備註', dataIndex: 'remark' },
-    {
-      title: '操作',
-      valueType: 'option',
-      render: (text, record) => [
-        <a key="specification" onClick={() => onClickShowItemSpecificationModalForm(record)}>
-          規格
-        </a>,
-        <a key="edit">修改</a>,
-        <Popconfirm
-          cancelText="取消"
-          key="delete"
-          onConfirm={() => deleteItemService(record)}
-          okText="確定"
-          title="確認刪除?"
-        >
-          <a>删除</a>
-        </Popconfirm>,
-      ],
-    },
+    ProTableOperationColumnButtons((record) => {
+      setCurrentRow(record);
+      setShowModalForm(true);
+    }, deleteItemService),
   ];
 
   return (

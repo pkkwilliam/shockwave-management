@@ -7,12 +7,15 @@ import { PageContainer } from '@ant-design/pro-layout';
 
 import CompanyModalForm from './components/companyModalForm';
 
+import { ADMIN_COMPANY_SERVICE_CONFIG } from '@/services/hive/companyService';
 import {
-  ADMIN_COMPANY_DELETE,
-  COMPANY_QUERY,
-  CREATE_COMPANY,
-  UPDATE_COMPANY,
-} from '@/services/hive/company';
+  BEDROCK_CREATE_SERVICE_REQEUST,
+  BEDROCK_DEACTIVATE_SERVICE_REQUEST,
+  BEDROCK_QUERY_PAGINATION_SERVICE_REQUEST,
+  BEDROCK_UPDATE_SERVICE_REQUEST,
+} from '@/services/hive/bedrockTemplateService';
+import { getValueEnum } from '@/enum/enumUtil';
+import { COMPANY_ACCOUNT_TYPES } from '@/enum/companyAccountType';
 
 const Compamy = () => {
   const actionRef = useRef();
@@ -21,18 +24,18 @@ const Compamy = () => {
   const [updateModalVisible, setUpdateModalVisible] = useState(false);
 
   const createCompanyServiceRequest = async (company) => {
-    await CREATE_COMPANY(company);
+    await BEDROCK_CREATE_SERVICE_REQEUST(ADMIN_COMPANY_SERVICE_CONFIG, company);
     setCreateModalVisible(false);
     onDataChanged();
   };
 
   const deleteCompanyServiceRequest = async (company) => {
-    await ADMIN_COMPANY_DELETE(company.id);
+    await BEDROCK_DEACTIVATE_SERVICE_REQUEST(ADMIN_COMPANY_SERVICE_CONFIG, company.id);
     onDataChanged();
   };
 
   const updateCompanyServiceRequest = async (company) => {
-    await UPDATE_COMPANY(company);
+    await BEDROCK_UPDATE_SERVICE_REQUEST(ADMIN_COMPANY_SERVICE_CONFIG, company);
     setUpdateModalVisible(false);
     onDataChanged();
   };
@@ -95,6 +98,12 @@ const Compamy = () => {
       },
     },
     {
+      title: '賬戶種型',
+      dataIndex: 'companyAccountType',
+      search: false,
+      valueEnum: getValueEnum(COMPANY_ACCOUNT_TYPES),
+    },
+    {
       title: '到期日',
       dataIndex: 'expiryDate',
       search: false,
@@ -155,7 +164,10 @@ const Compamy = () => {
         actionRef={actionRef}
         columns={COLUMNS}
         request={async (params = {}, sort, filter) => {
-          return COMPANY_QUERY(params);
+          return BEDROCK_QUERY_PAGINATION_SERVICE_REQUEST(ADMIN_COMPANY_SERVICE_CONFIG, {
+            ...params,
+            active: true,
+          });
         }}
         rowKey="id"
         search={{

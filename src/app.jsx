@@ -8,9 +8,11 @@ import defaultSettings from '../config/defaultSettings';
 import { GET_USER_PROFILE } from './services/hive/userProfile';
 import { PUBLIC_GET_COMPANY_CONFIG_BY_COMPANY_ID } from './services/hive/companyConfigService';
 import { useModel } from 'umi';
+import { Button, Space } from 'antd';
 
 const isDev = process.env.NODE_ENV === 'development';
 const loginPath = '/user/login';
+const trialPath = '/user/trial';
 /** 获取用户信息比较慢的时候会展示一个 loading */
 
 export const initialStateConfig = {
@@ -50,6 +52,16 @@ export async function getInitialState() {
 
 export const layout = ({ initialState, setInitialState }) => {
   return {
+    headerContentRender: () => (
+      <Space style={{ marginLeft: 16 }}>
+        <Link to={'/checkoutCounter'}>
+          <Button>收銀</Button>
+        </Link>
+        <Link to={'/shopManager/internalOrder'}>
+          <Button>內部訂單</Button>
+        </Link>
+      </Space>
+    ),
     rightContentRender: () => <RightContent />,
     disableContentMargin: false,
     waterMarkProps: {
@@ -58,8 +70,11 @@ export const layout = ({ initialState, setInitialState }) => {
     footerRender: () => <Footer />,
     onPageChange: () => {
       const { location } = history; // 如果没有登录，重定向到 login
-
-      if (!initialState?.currentUser && location.pathname !== loginPath) {
+      if (
+        !initialState?.currentUser &&
+        location.pathname !== loginPath &&
+        location.pathname !== trialPath
+      ) {
         history.push(loginPath);
       }
     },

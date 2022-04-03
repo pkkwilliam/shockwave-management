@@ -1,7 +1,7 @@
 import React, { useRef, useState } from 'react';
 import { PageContainer } from '@ant-design/pro-layout';
 import CategoryModalForm from './components/categoryModalForm';
-import { COMPANY_MANAGER_CATEGORY_SERVICE_CONFIG } from '@/services/hive/category';
+import { COMPANY_MANAGER_CATEGORY_SERVICE_CONFIG } from '@/services/hive/categoryService';
 import { Button, Popconfirm } from 'antd';
 import { PlusOutlined } from '@ant-design/icons';
 import ProTable from '@ant-design/pro-table';
@@ -47,7 +47,11 @@ const Category = () => {
   };
 
   const COLUMNS = [
-    { dataIndex: 'index', valueType: 'indexBorder' },
+    {
+      title: '圖片',
+      dataIndex: ['imageUrl'],
+      valueType: 'image',
+    },
     { title: '標簽', dataIndex: 'name' },
     ProTableOperationColumnButtons((record) => {
       setCurrentRow(record);

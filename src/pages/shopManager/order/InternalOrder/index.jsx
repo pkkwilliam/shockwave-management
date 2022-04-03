@@ -17,7 +17,7 @@ import { ORDER_STATUSES } from '@/enum/orderStatus';
 import { PAYMENT_STATUSES } from '@/enum/paymentStatus';
 import { ORDER_PLACE_CHANNELS } from '@/enum/orderPlaceChannel';
 import { toDisplayDate } from '@/util/dateUtil';
-import { COMPANY_STAFF_PRINT_ORDER_BY_ID } from '@/services/hive/printerService';
+import { COMPANY_PRINT_ORDER_BY_ID } from '@/services/hive/printService';
 import { PAYMENT_CHANNELS } from '@/enum/paymentChannel';
 
 const InternalOrder = () => {
@@ -62,7 +62,7 @@ const InternalOrder = () => {
   };
 
   const onClickPrintDistributionList = async (record) => {
-    await COMPANY_STAFF_PRINT_ORDER_BY_ID(record.id);
+    await COMPANY_PRINT_ORDER_BY_ID(record.id);
   };
 
   const COLUMNS = [
@@ -78,7 +78,7 @@ const InternalOrder = () => {
     {
       title: '送貨地址',
       renderText: (text, record) =>
-        `${record.deliveryAddress?.street} ${record.deliveryAddress?.unit}`,
+        `${record.deliveryAddress?.street ?? '-'} ${record.deliveryAddress?.unit ?? ''}`,
     },
     { title: '配貨地點', dataIndex: ['distributionShop', 'name'] },
     {

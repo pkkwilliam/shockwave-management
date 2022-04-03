@@ -4,12 +4,14 @@ import menu from './zh-TW/menu';
 import pwa from './zh-TW/pwa';
 import settingDrawer from './zh-TW/settingDrawer';
 import settings from './zh-TW/settings';
+import pages from './zh-CN/pages';
 export default {
   'navBar.lang': '語言',
   'layout.user.link.help': '幫助',
   'layout.user.link.privacy': '隱私',
   'layout.user.link.terms': '條款',
   'app.preview.down.block': '下載此頁面到本地項目',
+  ...pages,
   ...globalHeader,
   ...menu,
   ...settingDrawer,

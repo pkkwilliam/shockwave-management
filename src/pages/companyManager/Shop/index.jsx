@@ -7,7 +7,7 @@ import ProTable from '@ant-design/pro-table';
 
 import ShopModalForm from './components/shopModalForm';
 import { SHOP_TYPES, SHOP_TYPE_REGULAR } from '@/enum/shopType';
-import { convertEnumsToProTableValueEnum } from '@/enum/enumUtil';
+import { convertEnumsToProTableValueEnum, getValueEnum } from '@/enum/enumUtil';
 import {
   BEDROCK_CREATE_SERVICE_REQEUST,
   BEDROCK_DEACTIVATE_SERVICE_REQUEST,
@@ -15,7 +15,7 @@ import {
   BEDROCK_UPDATE_SERVICE_REQUEST,
 } from '@/services/hive/bedrockTemplateService';
 import ProTableOperationColumnButtons from '@/commons/proTable/ProTableOperationButtons';
-import { COMPANY_STAFF_TEST_SHOP_PRINTER } from '@/services/hive/printerService';
+import { COMPANY_TEST_SHOP_PRINTER } from '@/services/hive/printService';
 
 const Category = () => {
   const actionRef = useRef();
@@ -47,7 +47,7 @@ const Category = () => {
   };
 
   const onClickTestPrinter = async (record) => {
-    COMPANY_STAFF_TEST_SHOP_PRINTER(record.id);
+    COMPANY_TEST_SHOP_PRINTER(record.id);
   };
 
   const updateShopServiceRequest = async (shop) => {
@@ -73,9 +73,14 @@ const Category = () => {
     { title: '電話', dataIndex: ['address', 'phoneNumber'], search: false, valueType: 'number' },
     { title: '街道', dataIndex: ['address', 'street'], search: false, valueType: 'text' },
     { title: '單位', dataIndex: ['address', 'unit'], search: false, valueType: 'text' },
-    { title: '打印機SN', dataIndex: ['printerSerialNumber'], search: false, valueType: 'text' },
+    {
+      title: '默認打印機',
+      dataIndex: ['defaultPrinter', 'name'],
+      search: false,
+      valueType: 'text',
+    },
     ProTableOperationColumnButtons(
-      () => {
+      (record) => {
         setCurrentRow(record);
         setModalVisible(true);
       },

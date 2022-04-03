@@ -15,8 +15,19 @@ export default [
             path: '/user/login',
             component: './user/Login',
           },
+          {
+            path: '/user',
+            routes: [
+              {
+                name: 'trial',
+                path: '/user/trial',
+                component: './user/Trial',
+              },
+            ],
+          },
         ],
       },
+
       {
         component: './404',
       },
@@ -64,6 +75,12 @@ export default [
         name: '內部人員',
         icon: 'smile',
         component: './companyManager/UserManage/index',
+      },
+      {
+        path: '/companyManager/printer',
+        name: '打印機',
+        icon: 'smile',
+        component: './company/Printer/index',
       },
       {
         path: '/companyManager/shop',
@@ -137,7 +154,7 @@ export default [
   },
   {
     path: '/checkoutCounter',
-    name: '收銀台',
+    name: '收銀',
     icon: 'smile',
     component: './CheckoutCounter/index',
   },

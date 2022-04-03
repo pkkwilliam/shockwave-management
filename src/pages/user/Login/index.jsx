@@ -84,10 +84,11 @@ const Login = () => {
       </div>
       <div className={styles.content}>
         <LoginForm
-          logo={<img alt="logo" src="/logo.svg" />}
-          title="Ant Design"
+          logo={<img alt="logo" src="/logo.png" />}
+          title="HIVE銷售倉儲總管系統"
           subTitle={intl.formatMessage({
             id: 'pages.layouts.userLayout.title',
+            default: '',
           })}
           initialValues={{
             autoLogin: true,

@@ -1,10 +1,15 @@
 import { constructBasicRequest, contructPaginationRequest } from './config';
 
-const COMPANY_MANAGER_ITEM_SERVICE_URL = '/company_manager/item/v1';
+const COMPANY_ITEM_SERVICE_URL = '/company_manager/item/v1';
 
 export const COMPANY_MANAGER_ITEM_SERVICE_CONFIG = {
   requireAuth: true,
-  serviceUrl: COMPANY_MANAGER_ITEM_SERVICE_URL,
+  serviceUrl: COMPANY_ITEM_SERVICE_URL,
+};
+
+export const COMPANY_ITEM_SERVICE_CONFIG = {
+  requireAuth: true,
+  serviceUrl: COMPANY_ITEM_SERVICE_URL,
 };
 
 export async function COMPANY_MANAGER_QUERY_WITH_STOCK(params, sort, filter) {
