@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react';
-import { ADMIN_COMPANY_SERACH } from '@/services/hive/companyService';
 import { ModalForm, ProFormCheckbox, ProFormSelect, ProFormText } from '@ant-design/pro-form';
 import { Form } from 'antd';
 import {
@@ -7,6 +6,7 @@ import {
   USER_ROLE_COMPANY_MANAGER,
   USER_ROLE_SHOP_MANAGER,
   USER_ROLE_WAREHOUSE_MANAGER,
+  USER_ROLE_STAFF,
   USER_ROLE_BUYER,
 } from '@/enum/userRole';
 
@@ -16,15 +16,15 @@ const UserModalForm = (props) => {
   form.setFieldsValue({ ...user, company: user?.company.id, grantedRoles: user?.authorities });
   const [companies, setCompanies] = useState([]);
 
-  const searchCompanies = (nameLike) => {
-    ADMIN_COMPANY_SERACH(nameLike).then((companies) => setCompanies(companies));
-  };
+  // const searchCompanies = (nameLike) => {
+  //   ADMIN_COMPANY_SERACH(nameLike).then((companies) => setCompanies(companies));
+  // };
 
-  useEffect(() => searchCompanies(''), []);
-  const companyOptions = companies.map((company) => ({
-    value: company.id,
-    label: `ID ${company.id} - ${company.chineseName} - ${company.englishName}`,
-  }));
+  // useEffect(() => searchCompanies(''), []);
+  // const companyOptions = companies.map((company) => ({
+  //   value: company.id,
+  //   label: `ID ${company.id} - ${company.chineseName} - ${company.englishName}`,
+  // }));
   return (
     <ModalForm
       destroyOnClose
@@ -51,6 +51,7 @@ const UserModalForm = (props) => {
           USER_ROLE_COMPANY_MANAGER,
           USER_ROLE_SHOP_MANAGER,
           USER_ROLE_WAREHOUSE_MANAGER,
+          USER_ROLE_STAFF,
           USER_ROLE_BUYER,
         ]}
       />

@@ -1,16 +1,14 @@
 import React, { useRef, useState } from 'react';
 import { PageContainer } from '@ant-design/pro-layout';
 import ProTable from '@ant-design/pro-table';
-import { Button, Popconfirm, Tag } from 'antd';
+import { Button, Tag } from 'antd';
 import { PlusOutlined } from '@ant-design/icons';
 import ItemModalForm from './Components/ItemModalForm';
 import {
   COMPANY_ITEM_SERVICE_CONFIG,
   COMPANY_MANAGER_ITEM_SERVICE_CONFIG,
-  COMPANY_MANAGER_QUERY_WITH_STOCK,
 } from '@/services/hive/itemService';
 import ItemSpecificationModalForm from './Components/ItemSpecificationModalForm';
-import { COMPANY_MANAGER_MODIFY_ITEM_SPECIFICATIONS } from '@/services/hive/itemSpecificationService';
 import ItemSpecificationDetailModal from '@/pages/companyManager/ItemSpecification/components/ItemSpecificationDetailModal';
 import {
   BEDROCK_CREATE_SERVICE_REQEUST,
@@ -39,7 +37,10 @@ const ItemPage = () => {
   };
 
   const createItemSpecificationsService = async (itemSpecifications) => {
-    const response = await COMPANY_MANAGER_MODIFY_ITEM_SPECIFICATIONS(itemSpecifications);
+    const response = await BEDROCK_CREATE_SERVICE_REQEUST(
+      COMPANY_MANAGER_ITEM_SERVICE_CONFIG,
+      itemSpecifications,
+    );
   };
 
   const deleteItemService = async (record) => {
