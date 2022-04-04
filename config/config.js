@@ -9,6 +9,7 @@ export default defineConfig({
   define: {
     API_URL: 'https://hive-api.bitcode-lab.com',
   },
+  history: { type: 'hash' },
   hash: true,
   antd: {},
   dva: {
