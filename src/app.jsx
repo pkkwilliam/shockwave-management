@@ -33,6 +33,7 @@ export async function getInitialState() {
     return undefined;
   }; // 如果是登录页面，不执行
 
+  console.log(history.location.pathname);
   if (history.location.pathname !== loginPath && history.location.pathname !== trialPath) {
     const currentUser = await fetchUserInfo();
     const companyConfig = await PUBLIC_GET_COMPANY_CONFIG_BY_COMPANY_ID(currentUser.company.id);

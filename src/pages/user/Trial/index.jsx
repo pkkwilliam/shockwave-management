@@ -25,7 +25,7 @@ const Trial = () => {
 
   const verifyTrial = async (request) => {
     const response = await TRIAL_VERIFY(request);
-    message.success('註冊成功 3秒後自動登錄');
+    message.success('註冊成功 3秒後跳轉登錄');
     history.replace('/user/login');
   };
 
