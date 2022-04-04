@@ -14,7 +14,7 @@ import ProFormCompanyBusinessAddressSelect from '@/commons/proForm/ProFormCompan
 import ProFormOrderPlaceChannelRadio from '@/commons/proForm/ProFormOrderPlaceChannelRadio';
 import ProFormOrderStatusRadio from '@/commons/proForm/ProFormOrderStatusRadio';
 import ProFormPaymentStatusRadio from '@/commons/proForm/ProFormPaymentStatusRadio';
-import OrderItemInfoList from '../../components/OrderItemInfoList';
+import OrderItemInfoList from '@/components/OrderItemInfoList';
 import ProFormShopSelect from '@/commons/proForm/ProFormShopSelect';
 import ProFormPaymentChannelRadio from '@/commons/proForm/ProFormPaymentChannelRadio';
 import { BEDROCK_QUERY_LIST_SERVICE_REQUEST } from '@/services/hive/bedrockTemplateService';
