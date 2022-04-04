@@ -88,6 +88,12 @@ export default [
         icon: 'smile',
         component: './companyManager/Shop/index',
       },
+      // {
+      //   path: '/companyManager/companyBusiness',
+      //   name: '客戶',
+      //   icon: 'smile',
+      //   component: './companyManager/companyBusiness/index',
+      // },
     ],
   },
   {

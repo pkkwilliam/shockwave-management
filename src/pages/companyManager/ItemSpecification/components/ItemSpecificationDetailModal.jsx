@@ -11,7 +11,6 @@ import {
 } from '@/services/hive/bedrockTemplateService';
 import { ITEM_SPECIFICATION_STATUSES } from '@/enum/itemSpecificationStatus';
 import { getValueEnum } from '@/enum/enumUtil';
-import ProFormMediaUpload from '@/commons/proForm/ProFormMediaUpload';
 
 const ItemSpecificationDetailModal = (props) => {
   const tableRef = useRef();
