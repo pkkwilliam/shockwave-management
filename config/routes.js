@@ -19,7 +19,7 @@ export default [
             path: '/user',
             routes: [
               {
-                name: 'trial',
+                name: 'Hive試用',
                 path: '/user/trial',
                 component: './user/Trial',
               },
