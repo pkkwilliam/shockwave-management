@@ -4,7 +4,7 @@ import { COMPANY_MANAGER_SHOP_SERVICE_CONFIG } from '@/services/hive/shop';
 import { Button, Popconfirm } from 'antd';
 import { PlusOutlined } from '@ant-design/icons';
 import ProTable from '@ant-design/pro-table';
-
+import { useModel } from 'umi';
 import ShopModalForm from './components/shopModalForm';
 import { SHOP_TYPES, SHOP_TYPE_REGULAR } from '@/enum/shopType';
 import { convertEnumsToProTableValueEnum, getValueEnum } from '@/enum/enumUtil';
@@ -16,8 +16,10 @@ import {
 } from '@/services/hive/bedrockTemplateService';
 import ProTableOperationColumnButtons from '@/commons/proTable/ProTableOperationButtons';
 import { COMPANY_TEST_SHOP_PRINTER } from '@/services/hive/printService';
+import { COMPANY_GET_WECHAT_MINI_PROGRAM_QR_CODE } from '@/services/hive/wechatMiniProgramQrCodeService';
 
 const Category = () => {
+  const { initialState } = useModel('@@initialState');
   const actionRef = useRef();
   // const [createModalVisible, setCreateModalVisible] = useState(false);
   const [currentRow, setCurrentRow] = useState();
@@ -29,6 +31,14 @@ const Category = () => {
       setCurrentRow(undefined);
     }
     setModalVisible(visible);
+  };
+
+  const onClickMiniProgramQrCode = async (record) => {
+    const params = `companyId=${initialState.currentUser.company.id}&shopId=${record.id}`;
+    const response = await COMPANY_GET_WECHAT_MINI_PROGRAM_QR_CODE({
+      page: 'pages/Landing/index',
+      scene: params,
+    });
   };
 
   const createShopServiceRequest = async (shop) => {
@@ -73,11 +83,18 @@ const Category = () => {
     { title: '電話', dataIndex: ['address', 'phoneNumber'], search: false, valueType: 'number' },
     { title: '街道', dataIndex: ['address', 'street'], search: false, valueType: 'text' },
     { title: '單位', dataIndex: ['address', 'unit'], search: false, valueType: 'text' },
+
     {
       title: '默認打印機',
       dataIndex: ['defaultPrinter', 'name'],
       search: false,
       valueType: 'text',
+    },
+    {
+      title: '小程序二維碼',
+      render: (text, record) => (
+        <a onClick={() => onClickMiniProgramQrCode(record)}>小程序二維碼</a>
+      ),
     },
     ProTableOperationColumnButtons(
       (record) => {
