@@ -107,7 +107,6 @@ const Trial = () => {
                     name={['oneTimePassword']}
                     rules={[
                       {
-                        required: verifiedCodeRequested,
                         message: '請輸入驗證碼',
                       },
                     ]}

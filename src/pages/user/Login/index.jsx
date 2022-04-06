@@ -31,7 +31,7 @@ const LoginMessage = ({ content }) => (
 const Login = () => {
   const [userLoginState, setUserLoginState] = useState({});
   const [type, setType] = useState('account');
-  const { initialState, setInitialState } = useModel('@@initialState');
+  const { initialState, setInitialState, refresh } = useModel('@@initialState');
   const intl = useIntl();
 
   const fetchUserInfo = async () => {
@@ -64,6 +64,7 @@ const Login = () => {
         const { query } = history.location;
         const { redirect } = query;
         history.push(redirect || '/');
+        refresh();
         return;
       }
       setUserLoginState(data);
