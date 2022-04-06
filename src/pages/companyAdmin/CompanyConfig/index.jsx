@@ -3,6 +3,7 @@ import { PageContainer } from '@ant-design/pro-layout';
 import ProCard from '@ant-design/pro-card';
 import { useModel } from 'umi';
 import CompanyOrderConfigForm from './components/CompanyOrderConfigForm';
+import CompanyWechatMiniProgramConfigForm from './components/CompanyWechatMiniProgramConfigForm';
 
 const CompanyConfig = (props) => {
   const { initialState } = useModel('@@initialState');
@@ -14,11 +15,11 @@ const CompanyConfig = (props) => {
           type: 'card',
         }}
       >
-        <ProCard.TabPane key="tab1" tab="訂單">
+        <ProCard.TabPane key="tab1" tab="內部訂單">
           <CompanyOrderConfigForm />
         </ProCard.TabPane>
         <ProCard.TabPane key="tab2" tab="微信小程序">
-          微信小程序
+          <CompanyWechatMiniProgramConfigForm />
         </ProCard.TabPane>
       </ProCard>
     </PageContainer>

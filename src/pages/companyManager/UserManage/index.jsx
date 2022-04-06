@@ -44,7 +44,7 @@ export function UserManage() {
     if (!visible) {
       setCurrentRow(undefined);
     }
-    setModalFormVisible(false);
+    setModalFormVisible(visible);
   };
 
   const query = async (params, sort, filter) => {

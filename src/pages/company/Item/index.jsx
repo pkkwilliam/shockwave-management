@@ -51,6 +51,13 @@ const ItemPage = () => {
     tableRef.current.reload();
   };
 
+  const onChangeModalFormVisible = (visible) => {
+    if (!visible) {
+      setCurrentRow(undefined);
+    }
+    setShowModalForm(visible);
+  };
+
   const onClickItem = (record) => {
     setCurrentRow(record);
     setShowItemSpecification(record);
@@ -138,13 +145,13 @@ const ItemPage = () => {
       <ItemModalForm
         item={currentRow}
         onFinish={currentRow ? updateItemService : createItemService}
-        onVisibleChange={setShowModalForm}
+        onVisibleChange={onChangeModalFormVisible}
         visible={showModalForm}
       />
       <ItemSpecificationModalForm
         item={currentRow}
         onFinish={createItemSpecificationsService}
-        onVisibleChange={setShowSpecificationModalForm}
+        onVisibleChange={showSpecificationModalForm}
         visible={showSpecificationModalForm}
       />
       <ItemSpecificationDetailModal

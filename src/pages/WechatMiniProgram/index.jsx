@@ -26,6 +26,7 @@ const WechatMiniProgram = () => {
       COMPANY_WECHAT_MINI_PROGRAM_CONFIG_SERVICE_CONFIG,
       request,
     );
+    setWechatMiniProgramConfig(response);
   };
 
   useEffect(() => {

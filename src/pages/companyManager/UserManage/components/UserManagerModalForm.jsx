@@ -31,6 +31,7 @@ const UserModalForm = (props) => {
       title={user ? '修改用戶' : '新增用戶'}
       visible={visible}
     >
+      <ProFormText hidden label="SID" name={['sid']} />
       <ProFormText label="名字" placeholder="請輸入名字" required name="name" />
       <ProFormText label="用戶名(英文無空格)" placeholder="請輸入用戶名" required name="username" />
       <ProFormUserRoleCheckbox name="grantedRoles" label="權限" />

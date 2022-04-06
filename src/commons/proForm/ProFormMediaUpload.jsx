@@ -12,9 +12,12 @@ const ProFormMediaUpload = (props) => {
     if (!isArray) {
       currentValues = [currentValues];
     }
-    setCurrentFileList(
-      currentValues.map((value, index) => ({ uid: index, status: 'done', url: value, index })),
-    );
+    // something in the array
+    if (currentValues[0]) {
+      setCurrentFileList(
+        currentValues.map((value, index) => ({ uid: index, status: 'done', url: value, index })),
+      );
+    }
   }, []);
 
   const beforeUpload = async () => {

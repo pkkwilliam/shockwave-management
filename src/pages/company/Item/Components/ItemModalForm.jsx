@@ -18,6 +18,7 @@ const ItemModalForm = (props) => {
 
   return (
     <ModalForm
+      destroyOnCLose
       form={form}
       onFinish={onFinish}
       onVisibleChange={(visible) => onModalFormVisibleChange(onVisibleChange, form, visible)}

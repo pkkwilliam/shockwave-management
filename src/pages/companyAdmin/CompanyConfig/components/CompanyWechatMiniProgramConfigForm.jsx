@@ -5,26 +5,25 @@ import { Form } from 'antd';
 import { useModel } from 'umi';
 import React from 'react';
 
-const CompanyOrderConfigForm = (props) => {
+const CompanyWechatMiniProgramConfigForm = (props) => {
   const [form] = Form.useForm();
   const { initialState, refresh } = useModel('@@initialState');
 
-  form.setFieldsValue(initialState.companyConfig.companyInternalOrderConfig);
+  form.setFieldsValue(initialState.companyConfig.companyWechatConfig);
 
   const onUpdate = async (request) => {
     BEDROCK_UPDATE_SERVICE_REQUEST(COMPANY_ADMIN_COMPANY_CONFIG_SERVICE_CONFIG, {
       ...initialState.companyConfig,
-      companyInternalOrderConfig: request,
+      companyWechatConfig: request,
     });
     refresh();
     return true;
   };
-
   return (
     <ProForm form={form} onFinish={onUpdate}>
-      <ProFormSwitch label="允許制作超過庫存的訂單" name={['allowOverStockOrder']} />
+      <ProFormSwitch label="客戶端小程序" name={['enabled']} />
     </ProForm>
   );
 };
 
-export default CompanyOrderConfigForm;
+export default CompanyWechatMiniProgramConfigForm;
