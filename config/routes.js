@@ -4,6 +4,18 @@ export default [
     redirect: '/welcome',
   },
   {
+    hideInMenu: true,
+    path: '/account',
+    name: '賬號',
+    routes: [
+      {
+        path: '/account/settings',
+        name: '個人設置',
+        component: './user/Account/index',
+      },
+    ],
+  },
+  {
     path: '/user',
     layout: false,
     routes: [

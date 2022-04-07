@@ -14,17 +14,7 @@ const UserModalForm = (props) => {
   const { onClickSubmit, setModalVisible, user, visible } = props;
   const [form] = Form.useForm();
   form.setFieldsValue({ ...user, company: user?.company.id, grantedRoles: user?.authorities });
-  const [companies, setCompanies] = useState([]);
 
-  // const searchCompanies = (nameLike) => {
-  //   ADMIN_COMPANY_SERACH(nameLike).then((companies) => setCompanies(companies));
-  // };
-
-  // useEffect(() => searchCompanies(''), []);
-  // const companyOptions = companies.map((company) => ({
-  //   value: company.id,
-  //   label: `ID ${company.id} - ${company.chineseName} - ${company.englishName}`,
-  // }));
   return (
     <ModalForm
       destroyOnClose
@@ -40,7 +30,7 @@ const UserModalForm = (props) => {
       title={user ? '修改用戶' : '新增用戶'}
       visible={visible}
     >
-      <ProFormSelect label="企業" showSearch options={companyOptions} required name="company" />
+      <ProFormSelect label="企業" showSearch required name="company" />
       <ProFormText label="名字" placeholder="請輸入名字" required name="name" />
       <ProFormText label="用戶名(英文無空格)" placeholder="請輸入用戶名" required name="username" />
       <ProFormCheckbox.Group

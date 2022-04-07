@@ -11,7 +11,7 @@ const CompanyBusinessDeliveryAddressList = (props) => {
           rules={[{ required: true, message: '請輸入街道' }]}
         />
         <ProFormText label="單位" name="unit" rules={[{ required: true, message: '請輸入單位' }]} />
-        <ProFormText label="備註" name="remark" />
+        <ProFormText label="送貨地址備註" name="remark" />
       </ProFormGroup>
     </ProFormList>
   );

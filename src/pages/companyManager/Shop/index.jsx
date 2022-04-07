@@ -34,7 +34,7 @@ const Category = () => {
   };
 
   const onClickMiniProgramQrCode = async (record) => {
-    const params = `companyId=${initialState.currentUser.company.id}&shopId=${record.id}`;
+    const params = `companyId=${initialState.currentUser.company.id},shopId=${record.id}`;
     const response = await COMPANY_GET_WECHAT_MINI_PROGRAM_QR_CODE({
       page: 'pages/Landing/index',
       scene: params,
