@@ -102,7 +102,8 @@ const Category = () => {
         setModalVisible(true);
       },
       deleteShopServiceRequest,
-      (text, record) => <a onClick={() => onClickTestPrinter(record)}>測試打印機</a>,
+      (text, record) =>
+        record.defaultPrinter ? <a onClick={() => onClickTestPrinter(record)}>測試打印機</a> : null,
     ),
   ];
 
