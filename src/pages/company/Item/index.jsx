@@ -95,6 +95,7 @@ const ItemPage = () => {
     {
       title: '圖片',
       dataIndex: ['imageUrl'],
+      search: false,
       valueType: 'image',
     },
     {

@@ -50,6 +50,7 @@ const Category = () => {
     {
       title: '圖片',
       dataIndex: ['imageUrl'],
+      search: false,
       valueType: 'image',
     },
     { title: '標簽', dataIndex: 'name' },

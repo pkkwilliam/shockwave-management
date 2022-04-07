@@ -53,6 +53,7 @@ const ItemSpecificationDetailModal = (props) => {
     {
       title: '圖片',
       dataIndex: ['imageUrl'],
+      search: false,
       valueType: 'image',
       renderFormItem: () => <Upload action={'hello'} />,
     },

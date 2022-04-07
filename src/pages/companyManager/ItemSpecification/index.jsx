@@ -63,7 +63,7 @@ const ItemSpecification = () => {
   };
 
   const COLUMNS = [
-    { title: '圖片', dataIndex: ['imageUrl'], valueType: 'image' },
+    { title: '圖片', dataIndex: ['imageUrl'], search: false, valueType: 'image' },
     { title: '商品', dataIndex: ['item', 'name'] },
     { title: '規格名稱', dataIndex: 'name' },
     {
