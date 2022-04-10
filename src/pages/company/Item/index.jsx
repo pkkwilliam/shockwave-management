@@ -1,8 +1,7 @@
 import React, { useRef, useState } from 'react';
 import { PageContainer } from '@ant-design/pro-layout';
 import ProTable from '@ant-design/pro-table';
-import { Button, Tag } from 'antd';
-import { PlusOutlined } from '@ant-design/icons';
+import { Tag } from 'antd';
 import ItemModalForm from './Components/ItemModalForm';
 import {
   COMPANY_ITEM_SERVICE_CONFIG,
@@ -18,6 +17,7 @@ import {
 } from '@/services/hive/bedrockTemplateService';
 import ProTableOperationColumnButtons from '@/commons/proTable/ProTableOperationButtons';
 import ProFormCategorySelect from '@/commons/proForm/ProFormCategorySelect';
+import ItemStepForm from './Components/ItemStepForm';
 
 const ItemPage = () => {
   const tableRef = useRef();
@@ -78,6 +78,8 @@ const ItemPage = () => {
     return await BEDROCK_QUERY_PAGINATION_SERVICE_REQUEST(COMPANY_ITEM_SERVICE_CONFIG, {
       ...params,
       active: true,
+      showPriceRange: true,
+      showStock: true,
     });
   };
 
@@ -114,16 +116,29 @@ const ItemPage = () => {
       renderFormItem: (text, record) => <ProFormCategorySelect />,
     },
     {
-      title: '庫存',
-      dataIndex: ['stockResponse', 'stock'],
-      render: (text, record) => <a>{text}</a>,
+      title: '規格數量',
+      dataIndex: ['itemSpecificationPriceRangeResponse', 'count'],
     },
-    { title: '價格', dataIndex: 'price' },
+    {
+      title: '總庫存',
+      dataIndex: ['stockResponse', 'stock'],
+    },
+    {
+      title: '價格範圍',
+      renderText: (text, record) => {
+        const { count, startFrom, to } = record.itemSpecificationPriceRangeResponse;
+        return count < 2 ? `$${startFrom}` : `$${startFrom} - $${to}`;
+      },
+    },
     { title: '備註', dataIndex: 'remark' },
-    ProTableOperationColumnButtons((record) => {
-      setCurrentRow(record);
-      setShowModalForm(true);
-    }, deleteItemService),
+    ProTableOperationColumnButtons(
+      (record) => {
+        setCurrentRow(record);
+        setShowModalForm(true);
+      },
+      deleteItemService,
+      (text, record) => <a onClick={() => onClickItem(record)}>規格/庫存</a>,
+    ),
   ];
 
   return (
@@ -133,14 +148,15 @@ const ItemPage = () => {
         columns={COLUMNS}
         request={queryItemService}
         toolBarRender={() => [
-          <Button
-            icon={<PlusOutlined />}
-            key="button"
-            onClick={() => setShowModalForm(true)}
-            type="primary"
-          >
-            新建
-          </Button>,
+          <ItemStepForm key="item-onboard" onFinish={tableRef.current.reload} />,
+          // <Button
+          //   icon={<PlusOutlined />}
+          //   key="button"
+          //   onClick={() => setShowModalForm(true)}
+          //   type="primary"
+          // >
+          //   新建
+          // </Button>,
         ]}
       />
       <ItemModalForm

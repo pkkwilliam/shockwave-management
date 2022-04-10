@@ -1,12 +1,33 @@
 import ProCard from '@ant-design/pro-card';
 import ProTable from '@ant-design/pro-table';
-import { Row, Table } from 'antd';
+import { Button, InputNumber, Row, Table } from 'antd';
 import React from 'react';
 import { Typography, Space } from 'antd';
+import { DeleteOutlined } from '@ant-design/icons';
 
 const { Text, Link } = Typography;
 
 const CheckoutCounterItemSpecificationTable = (props) => {
+  const { dataSource, setSelectedItemSpecifications } = props;
+
+  const deleteRow = (record) => {
+    setSelectedItemSpecifications(
+      dataSource.filter((data) => data.itemSpecification.id !== record.itemSpecification.id),
+    );
+  };
+
+  const onChangeQuantity = (record, quantity) => {
+    setSelectedItemSpecifications(
+      dataSource.map((data) => {
+        if (data.itemSpecification.id !== record.itemSpecification.id) {
+          return data;
+        } else {
+          return { ...data, quantity };
+        }
+      }),
+    );
+  };
+
   const COLUMNS = [
     { title: '行', valueType: 'indexBorder' },
     {
@@ -22,11 +43,26 @@ const CheckoutCounterItemSpecificationTable = (props) => {
       title: '單價',
       dataIndex: ['itemSpecification', 'price'],
     },
-    { title: '數量', dataIndex: 'quantity' },
+    {
+      title: '數量',
+      dataIndex: 'quantity',
+      render: (text, record) => (
+        <InputNumber onChange={(value) => onChangeQuantity(record, value)} value={text} />
+      ),
+    },
     {
       title: '小計',
       dataIndex: 'cost',
       render: (text, record) => `$${record.itemSpecification.price * record.quantity}`,
+    },
+    {
+      title: '删除',
+      dataIndex: 'cost',
+      render: (text, record) => (
+        <Button danger icon={<DeleteOutlined />} onClick={() => deleteRow(record)} type="link">
+          删除
+        </Button>
+      ),
     },
   ];
   return (
@@ -36,9 +72,6 @@ const CheckoutCounterItemSpecificationTable = (props) => {
       pagination={false}
       rowSelection={{
         type: 'checkbox',
-        onSelect: (a, b) => {
-          console.log(a, b);
-        },
       }}
       search={false}
       size="small"

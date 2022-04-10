@@ -23,6 +23,11 @@ export const ORDER_STATUS_ORDER_FINISHED = {
   label: '訂單完成',
   status: 'default',
 };
+export const ORDER_STATUS_PAYMENT_PENDING = {
+  key: 'PAYMENT_PENDING',
+  label: '訂單等待支付',
+  status: 'warning',
+};
 
 export const ORDER_STATUSES = [
   ORDER_STATUS_ORDER_RECEIVED,
@@ -30,4 +35,5 @@ export const ORDER_STATUSES = [
   ORDER_STATUS_ORDER_PENDING,
   ORDER_STATUS_ORDER_READY_TO_PICK_UP,
   ORDER_STATUS_ORDER_FINISHED,
+  ORDER_STATUS_PAYMENT_PENDING,
 ];

@@ -9,7 +9,6 @@ export function getServiceUrl() {
 
 export async function constructBasicRequest(requestInfo, options) {
   const { body, method, params, requestUrl, responseType = 'json', successMessage } = requestInfo;
-  console.log(responseType);
   return request(getServiceUrl() + requestUrl, {
     body: JSON.stringify(body),
     headers: {

@@ -9,6 +9,7 @@ import { GET_USER_PROFILE } from './services/hive/userProfile';
 import { PUBLIC_GET_COMPANY_CONFIG_BY_COMPANY_ID } from './services/hive/companyConfigService';
 import { useModel } from 'umi';
 import { Button, Space } from 'antd';
+import { GET_COMPANY_ONBOARD } from './services/hive/companyOnboardService';
 
 const isDev = process.env.NODE_ENV === 'development';
 const loginPath = '/user/login';
@@ -36,8 +37,10 @@ export async function getInitialState() {
   if (history.location.pathname !== loginPath && history.location.pathname !== trialPath) {
     const currentUser = await fetchUserInfo();
     const companyConfig = await PUBLIC_GET_COMPANY_CONFIG_BY_COMPANY_ID(currentUser.company.id);
+    const companyOnBoard = await GET_COMPANY_ONBOARD();
     return {
       fetchUserInfo,
+      companyOnBoard,
       companyConfig,
       currentUser,
       settings: defaultSettings,

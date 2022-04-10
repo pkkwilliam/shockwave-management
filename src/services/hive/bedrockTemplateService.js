@@ -69,3 +69,13 @@ export async function BEDROCK_UPDATE_SERVICE_REQUEST(serviceConfig, requestBody)
   };
   return constructBasicRequest(request);
 }
+
+export async function BEDROCK_UPDATE_BATCH_SERVICE_REQUEST(serviceConfig, requestBody) {
+  const request = {
+    authenticated: serviceConfig.requireAuth,
+    body: requestBody,
+    method: 'PUT',
+    requestUrl: serviceConfig.serviceUrl + '/batch',
+  };
+  return constructBasicRequest(request);
+}

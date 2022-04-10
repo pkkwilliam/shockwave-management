@@ -30,8 +30,17 @@ const ItemSpecificationModalForm = (props) => {
     >
       <ProFormDigit hidden label="ID" name={['id']} />
       <ProFormGroup title="基本資料">
-        <ProFormItemSelect label="商品" name={['item', 'id']} />
-        <ProFormText label="規格名稱" name={['name']} />
+        <ProFormItemSelect
+          label="商品"
+          name={['item', 'id']}
+          rules={[{ required: true, message: '請選擇商品' }]}
+        />
+        <ProFormText
+          label="規格名稱"
+          name={['name']}
+          placeholder="300克"
+          rules={[{ required: true, message: '請輸入規格名稱' }]}
+        />
         <ProFormItemSpecificationStatusSelect label="狀態" name={['itemSpecificationStatus']} />
       </ProFormGroup>
       <ProFormMediaUpload form={form} label="圖片" name={['imageUrl']} />
@@ -41,7 +50,12 @@ const ItemSpecificationModalForm = (props) => {
       </ProFormGroup>
       <ProFormGroup title="價錢">
         <ProFormMoney label="零售原價" name={['price']} />
-        <ProFormMoney label="零售折扣" name={['discountPrice']} />
+        <ProFormMoney
+          label="零售折扣"
+          name={['discountPrice']}
+          placeholder="30"
+          rules={[{ required: true, message: '請輸零售原價' }]}
+        />
       </ProFormGroup>
       <ProFormGroup title="尺吋/重量">
         <ProFormDigit label="長" name={['length']} />

@@ -95,6 +95,7 @@ const Category = () => {
       render: (text, record) => (
         <a onClick={() => onClickMiniProgramQrCode(record)}>小程序二維碼</a>
       ),
+      search: false,
     },
     ProTableOperationColumnButtons(
       (record) => {

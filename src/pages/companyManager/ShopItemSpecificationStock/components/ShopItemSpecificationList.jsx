@@ -1,6 +1,5 @@
 import React, { useRef, useState } from 'react';
-
-import ProTable, { EditableProTable } from '@ant-design/pro-table';
+import { EditableProTable } from '@ant-design/pro-table';
 import {
   BEDROCK_QUERY_LIST_SERVICE_REQUEST,
   BEDROCK_UPDATE_SERVICE_REQUEST,
@@ -8,7 +7,10 @@ import {
 import { COMPANY_SHOP_MANAGER_ITEM_SPECIFICATION_STOCK_SERVICE_CONFIG } from '@/services/hive/itemSpecificationStockService';
 import { SHOP_TYPES } from '@/enum/shopType';
 import { getValueEnum } from '@/enum/enumUtil';
-import ProTableOperationColumnButtons from '@/commons/proTable/ProTableOperationButtons';
+import {
+  ITEM_SPECIFICATION_STOCK_TYPES,
+  ITEM_SPECIFICATION_STOCK_TYPE_LIMITED,
+} from '@/enum/itemSpecificationStockType';
 
 const ShopItemSpecificationList = (props) => {
   const tableActionRef = useRef();
@@ -39,7 +41,21 @@ const ShopItemSpecificationList = (props) => {
       search: false,
       valueEnum: getValueEnum(SHOP_TYPES),
     },
-    { title: '地點庫存', dataIndex: ['stock'], search: false, valueType: 'number' },
+    {
+      title: '庫存類型',
+      dataIndex: ['itemStockType'],
+      editable: true,
+      search: false,
+      valueEnum: getValueEnum(ITEM_SPECIFICATION_STOCK_TYPES),
+    },
+    {
+      title: '地點庫存',
+      dataIndex: ['stock'],
+      search: false,
+      valueType: 'number',
+      renderText: (text, record) =>
+        record.itemStockType === ITEM_SPECIFICATION_STOCK_TYPE_LIMITED.key ? text : '-',
+    },
     {
       title: '操作',
       valueType: 'option',
@@ -63,7 +79,14 @@ const ShopItemSpecificationList = (props) => {
           update(data);
         },
       }}
-      recordCreatorProps={{ disabled: true, position: 'bottom', creatorButtonText: '新增一行' }}
+      recordCreatorProps={{
+        creatorButtonText: '新增一行',
+        disabled: true,
+        position: 'bottom',
+        style: {
+          display: 'none',
+        },
+      }}
       request={queryItemSpecificationStock}
       rowKey="id"
       search={false}

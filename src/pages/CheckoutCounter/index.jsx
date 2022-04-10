@@ -6,12 +6,13 @@ import CheckoutCounterItemSpecificationSelectedStatistic from './components/Chec
 import CheckoutCounterItemSpecificationTable from './components/CheckoutCounterItemSpecificationTable';
 
 import { Button, Col, Row, Space } from 'antd';
-import CheckoutCounterPayment from './components/CheckoutCounterPayment';
 import CheckoutModal from './components/CheckoutModal';
+import ProFormShopSelect from '@/commons/proForm/ProFormShopSelect';
 
 const CheckoutCounter = () => {
   const [checkoutModalVisible, setCheckoutModalVisible] = useState(false);
   const [currentRow, setCurrentRow] = useState();
+  const [distributionShop, setDistributionShop] = useState();
   const [selectedItemSpecifications, setSelectedItemSpecifications] = useState([]);
 
   const onClickCheckout = () => {
@@ -34,41 +35,53 @@ const CheckoutCounter = () => {
     if (!containeItem) {
       updatedItems.push({ itemSpecification: option.data, quantity: 1 });
     }
-
     setSelectedItemSpecifications(updatedItems);
   };
 
   return (
     <>
-      <ProCard direction="row" ghost gutter={16}>
-        <ProCard direction="column" ghost>
-          <CheckoutCounterItemSpecificationSelectedStatistic
-            selectedItemSpecifications={selectedItemSpecifications}
-          />
-          <ProCard>
-            <ProCard colSpan={20}>
-              <CheckoutCounterItemSpecificationSelect
-                onSelect={onSelectItemSpecification}
-                showSearch
-              />
-              <CheckoutCounterItemSpecificationTable dataSource={selectedItemSpecifications} />
-            </ProCard>
-            <ProCard layout="center">
-              <Space direction="vertical">
-                <Button onClick={onClickCheckout} size="large" type="primary">
-                  結賬
-                </Button>
-                <Button>數量*</Button>
-                <Button>删行 Del</Button>
-                <Button>掛單F12</Button>
-              </Space>
+      <ProFormShopSelect
+        allowClear={false}
+        label="銷售地點"
+        onChange={(shopId) => setDistributionShop(shopId)}
+      />
+      {!distributionShop ? null : (
+        <ProCard direction="row" ghost gutter={16}>
+          <ProCard direction="column" ghost>
+            <CheckoutCounterItemSpecificationSelectedStatistic
+              selectedItemSpecifications={selectedItemSpecifications}
+            />
+            <ProCard>
+              <ProCard colSpan={20}>
+                <CheckoutCounterItemSpecificationSelect
+                  onSelect={onSelectItemSpecification}
+                  showSearch
+                />
+                <CheckoutCounterItemSpecificationTable
+                  dataSource={selectedItemSpecifications}
+                  setSelectedItemSpecifications={setSelectedItemSpecifications}
+                />
+              </ProCard>
+              <ProCard layout="center">
+                <Space direction="vertical">
+                  <Button onClick={onClickCheckout} size="large" type="primary">
+                    結賬
+                  </Button>
+                  <Button>數量*</Button>
+                  <Button>删行 Del</Button>
+                  <Button>掛單F12</Button>
+                </Space>
+              </ProCard>
             </ProCard>
           </ProCard>
         </ProCard>
-      </ProCard>
+      )}
       <CheckoutModal
         onChangeVisible={setCheckoutModalVisible}
-        selectedItemSpecifications={selectedItemSpecifications}
+        order={{
+          distributionShop: { id: distributionShop },
+          orderItemInfos: selectedItemSpecifications,
+        }}
         visible={checkoutModalVisible}
       />
     </>

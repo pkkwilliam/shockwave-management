@@ -11,7 +11,7 @@ import {
 import { Button } from 'antd';
 import { PlusOutlined } from '@ant-design/icons';
 import InternalOrderModalForm from './components/InternalOrderModalForm';
-import { COMPANY_STAFF_ORDER_SERVICE_CONFIG } from '@/services/hive/orderService';
+import { COMPANY_ORDER_SERVICE_CONFIG } from '@/services/hive/orderService';
 import { getValueEnum } from '@/enum/enumUtil';
 import { ORDER_STATUSES } from '@/enum/orderStatus';
 import { PAYMENT_STATUSES } from '@/enum/paymentStatus';
@@ -26,7 +26,7 @@ const InternalOrder = () => {
   const [modalFormVisible, setShowModalFormVisible] = useState(false);
 
   const onCreate = async (request) => {
-    await BEDROCK_CREATE_SERVICE_REQEUST(COMPANY_STAFF_ORDER_SERVICE_CONFIG, request);
+    await BEDROCK_CREATE_SERVICE_REQEUST(COMPANY_ORDER_SERVICE_CONFIG, request);
     tableRef.current.reload();
     return true;
   };
@@ -35,7 +35,7 @@ const InternalOrder = () => {
 
   const query = async (params, sort, filter) => {
     return await BEDROCK_QUERY_PAGINATION_SERVICE_REQUEST(
-      COMPANY_STAFF_ORDER_SERVICE_CONFIG,
+      COMPANY_ORDER_SERVICE_CONFIG,
       {
         ...params,
         active: true,
@@ -46,10 +46,7 @@ const InternalOrder = () => {
   };
 
   const onUpdate = async (request) => {
-    const response = await BEDROCK_UPDATE_SERVICE_REQUEST(
-      COMPANY_STAFF_ORDER_SERVICE_CONFIG,
-      request,
-    );
+    const response = await BEDROCK_UPDATE_SERVICE_REQUEST(COMPANY_ORDER_SERVICE_CONFIG, request);
     tableRef.current.reload();
     return true;
   };

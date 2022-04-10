@@ -14,6 +14,16 @@ export const ITEM_SPECIFICATION_SERVICE_CONFIG = {
   serviceUrl: ITEM_SPECIFICATION_SERVICE_URL,
 };
 
+export async function COMPANY_SPECIFICATION_FUZZY_SEARCH(params) {
+  const request = {
+    authenticated: false,
+    params,
+    mehtod: 'GET',
+    requestUrl: ITEM_SPECIFICATION_SERVICE_CONFIG.serviceUrl + '/fuzzy_search',
+  };
+  return constructBasicRequest(request);
+}
+
 export async function COMPANY_MANAGER_CREATE_ITEM_SPECIFICATIONS(itemSpecifications) {
   const request = {
     authenticated: true,

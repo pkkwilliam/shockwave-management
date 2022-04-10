@@ -57,7 +57,18 @@ const ItemSpecificationDetailModal = (props) => {
       valueType: 'image',
       renderFormItem: () => <Upload action={'hello'} />,
     },
-    { title: '規格名稱', dataIndex: 'name' },
+    {
+      title: '規格名稱',
+      dataIndex: 'name',
+      formItemProps: {
+        rules: [
+          {
+            required: true,
+            message: '請輸入規格名稱',
+          },
+        ],
+      },
+    },
     {
       title: '狀態',
       dataIndex: 'itemSpecificationStatus',
@@ -66,7 +77,21 @@ const ItemSpecificationDetailModal = (props) => {
     { title: '庫存', dataIndex: ['stockResponse', 'stock'], editable: false },
     { title: 'SKU', dataIndex: 'sku' },
     { title: '條碼', dataIndex: 'barcode' },
-    { title: '價格', dataIndex: 'price', search: false, valueType: 'money', width: 100 },
+    {
+      title: '零售價格',
+      dataIndex: 'price',
+      formItemProps: {
+        rules: [
+          {
+            required: true,
+            message: '請輸入零售價格',
+          },
+        ],
+      },
+      search: false,
+      valueType: 'money',
+      width: 100,
+    },
     {
       title: '折扣價格',
       dataIndex: 'discountPrice',
@@ -140,7 +165,7 @@ const ItemSpecificationDetailModal = (props) => {
           },
           rowExpandable: (record) => record.name !== 'Not Expandable',
         }}
-        recordCreatorProps={{ position: 'bottom', creatorButtonText: '新增一行' }}
+        recordCreatorProps={{ position: 'bottom', creatorButtonText: '新增規格' }}
         request={queryItemSpecification}
         rowKey="id"
         search={false}

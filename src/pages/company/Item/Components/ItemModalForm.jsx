@@ -18,7 +18,7 @@ const ItemModalForm = (props) => {
 
   return (
     <ModalForm
-      destroyOnCLose
+      destroyOnClose
       form={form}
       onFinish={onFinish}
       onVisibleChange={(visible) => onModalFormVisibleChange(onVisibleChange, form, visible)}
@@ -33,16 +33,21 @@ const ItemModalForm = (props) => {
           <ProFormText
             label="品名"
             name="name"
-            rules={[{ required: true, message: '請輸入品名' }]}
+            placeholder="品名 如: 巧克力餅乾"
+            rules={[{ required: true, message: '請輸入品名 如: 巧克力餅乾' }]}
           />
-          <ProFormText label="品牌" name="brand" />
+          <ProFormText label="品牌" name="brand" placeholder="品牌 如: 維他" />
         </Space>
       </Space>
 
       <ProFormCategoryListSelect label="標簽" mode="multiple" name={['categories']} />
       <Space>
-        <ProFormTextArea label="內容" name="content" />
-        <ProFormTextArea label="描述" name="description" />
+        <ProFormTextArea label="內容" name="content" placeholder="5分包裝 每包25塊" />
+        <ProFormTextArea
+          label="描述"
+          name="description"
+          placeholder="非常可口的維他巧克力餅乾..."
+        />
       </Space>
       <ProFormText label="備註" name="remark" />
     </ModalForm>

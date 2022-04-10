@@ -3,18 +3,18 @@ import { StatisticCard } from '@ant-design/pro-card';
 import React from 'react';
 
 const CheckoutCounterItemSpecificationSelectedStatistic = (props) => {
-  // const calculateTotalCost = () => {
-  //   return props.selectedItemSpecifications.reduce((previous, current) => {
-  //     return previous + current.itemSpecification.price * current.quantity;
-  //   }, 0);
-  // };
+  const calculateTotalCost = () => {
+    return props.selectedItemSpecifications.reduce((previous, current) => {
+      return previous + current.itemSpecification.price * current.quantity;
+    }, 0);
+  };
 
-  // const calculateTotalCount = () => {
-  //   return props.selectedItemSpecifications.reduce(
-  //     (previous, current) => previous + current.quantity,
-  //     0,
-  //   );
-  // };
+  const calculateTotalCount = () => {
+    return props.selectedItemSpecifications.reduce(
+      (previous, current) => previous + current.quantity,
+      0,
+    );
+  };
 
   return (
     <StatisticCard.Group direction={'row'}>

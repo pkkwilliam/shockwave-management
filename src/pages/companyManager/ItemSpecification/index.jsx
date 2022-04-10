@@ -47,7 +47,7 @@ const ItemSpecification = () => {
   const queryItemSpecification = async (params, sort, filter) => {
     return await BEDROCK_QUERY_PAGINATION_SERVICE_REQUEST(
       COMPANY_MANAGER_ITEM_SPECIFICATION_SERVICE_CONFIG,
-      { ...params, active: true },
+      { ...params, active: true, showStock: true },
       sort,
       filter,
     );
