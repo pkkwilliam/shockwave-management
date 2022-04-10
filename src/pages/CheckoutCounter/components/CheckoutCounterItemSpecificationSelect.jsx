@@ -8,19 +8,21 @@ import { ProFormSelect } from '@ant-design/pro-form';
 
 const CheckoutCounterItemSpecificationSelect = (props) => {
   const query = async (params) => {
-    const response = await COMPANY_SPECIFICATION_FUZZY_SEARCH({ fuzzyString: props.keyWords });
+    const response = await COMPANY_SPECIFICATION_FUZZY_SEARCH({ fuzzyString: params.keyWords });
     const options = response.map((itemSpecification) => ({
       value: itemSpecification.id,
-      label: `${itemSpecification?.item?.name} | ${itemSpecification?.name} | ${itemSpecification?.sku} | $${itemSpecification?.price}`,
+      label: `${itemSpecification?.item?.name ?? ''} | ${itemSpecification?.name ?? ''} | ${
+        itemSpecification?.sku ?? ''
+      } | ${itemSpecification?.barcode ?? ''} | $${itemSpecification?.price}`,
       data: itemSpecification,
     }));
     return options;
   };
   return (
     <ProFormSelect
-      debounceTime={3000}
+      debounceTime={500}
       request={query}
-      fieldProps={{ onSelect: props.onSelect }}
+      fieldProps={{ autoFocus: true, onSelect: props.onSelect }}
       {...props}
     />
   );

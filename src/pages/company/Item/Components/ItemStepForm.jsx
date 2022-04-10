@@ -22,6 +22,10 @@ import { COMPANY_SHOP_MANAGER_ITEM_SPECIFICATION_STOCK_SERVICE_CONFIG } from '@/
 import { EditableProTable } from '@ant-design/pro-table';
 import { getValueEnum } from '@/enum/enumUtil';
 import { SHOP_TYPES } from '@/enum/shopType';
+import {
+  ITEM_SPECIFICATION_STOCK_TYPES,
+  ITEM_SPECIFICATION_STOCK_TYPE_LIMITED,
+} from '@/enum/itemSpecificationStockType';
 
 const ItemStepForm = (props) => {
   const [editableKeys, setEditableRowKeys] = useState();
@@ -29,6 +33,32 @@ const ItemStepForm = (props) => {
   const [itemSpecification, setItemSpecification] = useState();
   const [itemSpecificationsStock, setItemSpecificationsStock] = useState();
   const [visible, setVisible] = useState(false);
+
+  const SHOP_ITEM_SPECIFICATION_COLUMNS = [
+    { title: '地點', dataIndex: ['shop', 'name'], editable: false },
+    {
+      title: '地點類型',
+      dataIndex: ['shop', 'shopType'],
+      editable: false,
+      search: false,
+      valueEnum: getValueEnum(SHOP_TYPES),
+    },
+    {
+      title: '庫存類型',
+      dataIndex: ['itemStockType'],
+      editable: true,
+      search: false,
+      valueEnum: getValueEnum(ITEM_SPECIFICATION_STOCK_TYPES),
+    },
+    {
+      title: '地點庫存',
+      dataIndex: ['stock'],
+      search: false,
+      valueType: 'number',
+      renderText: (text, record) =>
+        record.itemStockType === ITEM_SPECIFICATION_STOCK_TYPE_LIMITED.key ? text : '-',
+    },
+  ];
 
   const createItem = async (request) => {
     const response = await BEDROCK_CREATE_SERVICE_REQEUST(COMPANY_ITEM_SERVICE_CONFIG, request);
@@ -61,27 +91,15 @@ const ItemStepForm = (props) => {
     setEditableRowKeys(response.data.map((itemSpecificationStock) => itemSpecificationStock.id));
   };
 
-  const updateBatchItemSpecificationStock = async () => {
+  const updateBatchItemSpecificationStock = async (request) => {
+    console.log(request);
     await BEDROCK_UPDATE_BATCH_SERVICE_REQUEST(
       COMPANY_SHOP_MANAGER_ITEM_SPECIFICATION_STOCK_SERVICE_CONFIG,
-      itemSpecificationsStock,
+      request,
     );
     setVisible(false);
-    props?.onFinish();
     return true;
   };
-
-  const COLUMNS = [
-    { title: '地點', dataIndex: ['shop', 'name'], editable: false },
-    {
-      title: '地點類型',
-      dataIndex: ['shop', 'shopType'],
-      editable: false,
-      search: false,
-      valueEnum: getValueEnum(SHOP_TYPES),
-    },
-    { title: '地點庫存', dataIndex: ['stock'], search: false, valueType: 'number' },
-  ];
 
   return (
     <>
@@ -90,7 +108,7 @@ const ItemStepForm = (props) => {
         快速創建商品
       </Button>
       <StepsForm
-        onFinish={updateBatchItemSpecificationStock}
+        onFinish={props?.onFinish}
         formProps={{
           validateMessages: {
             required: '此项为必填项',
@@ -215,19 +233,18 @@ const ItemStepForm = (props) => {
         </StepsForm.StepForm>
         <StepsForm.StepForm
           name="time"
+          onFinish={() => updateBatchItemSpecificationStock(itemSpecificationsStock)}
           stepProps={{
             description: '設置倉庫/門店或貨架之庫存',
           }}
           title="庫存設置"
         >
           <EditableProTable
-            columns={COLUMNS}
+            columns={SHOP_ITEM_SPECIFICATION_COLUMNS}
             editable={{
               type: 'multiple',
               editableKeys,
-              onSave: async (rowKey, data, row) => {
-                update(data);
-              },
+              onChange: setEditableRowKeys,
               onValuesChange: (record, recordList) => {
                 setItemSpecificationsStock(recordList);
               },
