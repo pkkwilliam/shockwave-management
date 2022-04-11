@@ -27,274 +27,12 @@ import {
   ITEM_SPECIFICATION_STOCK_TYPE_LIMITED,
 } from '@/enum/itemSpecificationStockType';
 
-const defaultData = () => {
-  return [
-    {
-      active: true,
-      id: 664,
-      itemSpecification: {
-        active: true,
-        id: 660,
-        barcode: null,
-        cost: null,
-        discountPrice: null,
-        height: 0,
-        imageUrl: null,
-        item: {
-          active: true,
-          id: 659,
-          brand: null,
-          categories: [],
-          content: null,
-          description: null,
-          imageUrl: null,
-          itemStatus: null,
-          manufacturer: null,
-          name: '1',
-          remark: null,
-          itemSpecificationPriceRangeResponse: null,
-          stockResponse: null,
-        },
-        itemSpecificationStatus: null,
-        length: 0,
-        name: '1',
-        price: 1.0,
-        remark: null,
-        sku: null,
-        stockResponse: null,
-        weight: null,
-        width: 0,
-      },
-      shop: {
-        active: true,
-        id: 25,
-        address: {
-          active: true,
-          id: 24,
-          addressType: 'SHOP',
-          contactName: 'Pun Ka Keid',
-          countryCode: 'Macaod',
-          phoneNumber: '63530392d',
-          street: 'Rua dos Pescadores no 166. Edificio Industrial Veng Houf',
-          unit: '2',
-          remark: null,
-        },
-        defaultPrinter: {
-          active: true,
-          id: 133,
-          name: '源代碼測試機',
-          printer: 'FEIE_58MM_RECEIPT_PRINTER',
-          remark: 'REMAK',
-          serialNumber: '922589824',
-        },
-        name: '永好7樓配貨中心',
-        shopType: 'REGULAR',
-      },
-      stock: 90,
-      itemStockType: 'LIMITED',
-    },
-    {
-      active: true,
-      id: 663,
-      itemSpecification: {
-        active: true,
-        id: 660,
-        barcode: null,
-        cost: null,
-        discountPrice: null,
-        height: 0,
-        imageUrl: null,
-        item: {
-          active: true,
-          id: 659,
-          brand: null,
-          categories: [],
-          content: null,
-          description: null,
-          imageUrl: null,
-          itemStatus: null,
-          manufacturer: null,
-          name: '1',
-          remark: null,
-          itemSpecificationPriceRangeResponse: null,
-          stockResponse: null,
-        },
-        itemSpecificationStatus: null,
-        length: 0,
-        name: '1',
-        price: 1.0,
-        remark: null,
-        sku: null,
-        stockResponse: null,
-        weight: null,
-        width: 0,
-      },
-      shop: {
-        active: true,
-        id: 32,
-        address: {
-          active: true,
-          id: 31,
-          addressType: 'SHOP',
-          contactName: 'XX',
-          countryCode: 'XX',
-          phoneNumber: 'XX',
-          street: 'XX',
-          unit: 'XX',
-          remark: null,
-        },
-        defaultPrinter: {
-          active: true,
-          id: 133,
-          name: '源代碼測試機',
-          printer: 'FEIE_58MM_RECEIPT_PRINTER',
-          remark: 'REMAK',
-          serialNumber: '922589824',
-        },
-        name: '小史配貨中心',
-        shopType: 'SHELVES',
-      },
-      stock: 0,
-      itemStockType: 'LIMITED',
-    },
-    {
-      active: true,
-      id: 662,
-      itemSpecification: {
-        active: true,
-        id: 660,
-        barcode: null,
-        cost: null,
-        discountPrice: null,
-        height: 0,
-        imageUrl: null,
-        item: {
-          active: true,
-          id: 659,
-          brand: null,
-          categories: [],
-          content: null,
-          description: null,
-          imageUrl: null,
-          itemStatus: null,
-          manufacturer: null,
-          name: '1',
-          remark: null,
-          itemSpecificationPriceRangeResponse: null,
-          stockResponse: null,
-        },
-        itemSpecificationStatus: null,
-        length: 0,
-        name: '1',
-        price: 1.0,
-        remark: null,
-        sku: null,
-        stockResponse: null,
-        weight: null,
-        width: 0,
-      },
-      shop: {
-        active: true,
-        id: 66,
-        address: {
-          active: true,
-          id: 65,
-          addressType: 'SHOP',
-          contactName: '潘嘉朞',
-          countryCode: '853',
-          phoneNumber: '63530392',
-          street: '111',
-          unit: '222',
-          remark: null,
-        },
-        defaultPrinter: {
-          active: true,
-          id: 133,
-          name: '源代碼測試機',
-          printer: 'FEIE_58MM_RECEIPT_PRINTER',
-          remark: 'REMAK',
-          serialNumber: '922589824',
-        },
-        name: '源代碼2號倉',
-        shopType: 'WAREHOUSE',
-      },
-      stock: 0,
-      itemStockType: 'LIMITED',
-    },
-    {
-      active: true,
-      id: 661,
-      itemSpecification: {
-        active: true,
-        id: 660,
-        barcode: null,
-        cost: null,
-        discountPrice: null,
-        height: 0,
-        imageUrl: null,
-        item: {
-          active: true,
-          id: 659,
-          brand: null,
-          categories: [],
-          content: null,
-          description: null,
-          imageUrl: null,
-          itemStatus: null,
-          manufacturer: null,
-          name: '1',
-          remark: null,
-          itemSpecificationPriceRangeResponse: null,
-          stockResponse: null,
-        },
-        itemSpecificationStatus: null,
-        length: 0,
-        name: '1',
-        price: 1.0,
-        remark: null,
-        sku: null,
-        stockResponse: null,
-        weight: null,
-        width: 0,
-      },
-      shop: {
-        active: true,
-        id: 161,
-        address: {
-          active: true,
-          id: 160,
-          addressType: 'SHOP',
-          contactName: null,
-          countryCode: null,
-          phoneNumber: null,
-          street: null,
-          unit: null,
-          remark: null,
-        },
-        defaultPrinter: null,
-        name: '路環暫轉倉',
-        shopType: 'REGULAR',
-      },
-      stock: 0,
-      itemStockType: 'LIMITED',
-    },
-  ];
-};
-
 const ItemStepForm = (props) => {
-  // const [editableKeys, setEditableRowKeys] = useState();
+  const [editableKeys, setEditableKeys] = useState();
   const [item, setItem] = useState();
   const [itemSpecification, setItemSpecification] = useState();
   const [itemSpecificationsStock, setItemSpecificationsStock] = useState();
   const [visible, setVisible] = useState(false);
-  const [editableKeys, setEditableRowKeys] = useState(defaultData().map((item) => item.id));
-  const [dataSource, setDataSource] = useState(defaultData());
-
-  useEffect(() => {
-    console.log('starttt');
-    setEditableRowKeys(defaultData().map((item) => item.id));
-    console.log(editableKeys);
-  }, []);
 
   const SHOP_ITEM_SPECIFICATION_COLUMNS = [
     { title: '地點', dataIndex: ['shop', 'name'], editable: false },
@@ -320,31 +58,6 @@ const ItemStepForm = (props) => {
       valueType: 'number',
       renderText: (text, record) =>
         record.itemStockType === ITEM_SPECIFICATION_STOCK_TYPE_LIMITED.key ? text : '-',
-    },
-  ];
-
-  const columns = [
-    {
-      title: '活动名称',
-      dataIndex: ['shop', 'name'],
-      width: '30%',
-    },
-    {
-      title: '状态',
-      dataIndex: 'itemStockType',
-    },
-    {
-      title: '描述',
-      dataIndex: 'stock',
-      editable: true,
-    },
-    {
-      title: '操作',
-      valueType: 'option',
-      width: 250,
-      render: () => {
-        return null;
-      },
     },
   ];
 
@@ -376,7 +89,7 @@ const ItemStepForm = (props) => {
     // get item specification stock by each shop
     setItemSpecificationsStock(response.data);
     // set item is being edit for EditiableTable
-    setEditableRowKeys(response.data.map((itemSpecificationStock) => itemSpecificationStock.id));
+    setEditableKeys(response.data.map((itemSpecificationStock) => itemSpecificationStock.id));
   };
 
   const updateBatchItemSpecificationStock = async (request) => {
@@ -528,7 +241,6 @@ const ItemStepForm = (props) => {
           title="庫存設置"
         >
           <EditableProTable
-            headerTitle="可编辑表格"
             columns={SHOP_ITEM_SPECIFICATION_COLUMNS}
             rowKey="id"
             value={itemSpecificationsStock}
@@ -538,7 +250,7 @@ const ItemStepForm = (props) => {
               onValuesChange: (record, recordList) => {
                 setItemSpecificationsStock(recordList);
               },
-              onChange: setEditableRowKeys,
+              onChange: setEditableKeys,
             }}
           />
         </StepsForm.StepForm>
