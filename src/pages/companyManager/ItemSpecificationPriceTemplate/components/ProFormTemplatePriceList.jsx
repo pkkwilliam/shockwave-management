@@ -1,5 +1,5 @@
 import React from 'react';
-import { ProFormGroup, ProFormList, ProFormMoney } from '@ant-design/pro-form';
+import { ProFormDependency, ProFormGroup, ProFormList, ProFormMoney } from '@ant-design/pro-form';
 import ProFormItemSpecificationSelect from '@/commons/proForm/ProFormItemSpecificationSelect';
 import ProFormItemSelect from '@/commons/proForm/ProFormItemSelect';
 
@@ -8,11 +8,19 @@ const ProFormPriceTemplateList = (props) => {
     <ProFormList {...props}>
       <ProFormGroup>
         <ProFormItemSelect label="商品" name={['itemSpecification', 'item', 'id']} />
-        <ProFormItemSpecificationSelect
-          dependencies={['itemSpecification', 'item', 'id']}
-          label="規格"
-          name={['itemSpecification', 'id']}
-        />
+        <ProFormDependency name={['itemSpecification']}>
+          {(fieldsValue) => {
+            return (
+              <ProFormItemSpecificationSelect
+                dependencies={['itemSpecification', 'item', 'id']}
+                item={fieldsValue.itemSpecification?.item}
+                label="規格"
+                name={['itemSpecification', 'id']}
+              />
+            );
+          }}
+        </ProFormDependency>
+
         <ProFormMoney label="模版價格" name="price" />
       </ProFormGroup>
     </ProFormList>

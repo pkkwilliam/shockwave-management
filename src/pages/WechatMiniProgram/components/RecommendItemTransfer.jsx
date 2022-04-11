@@ -72,8 +72,8 @@ const RecommendItemTransfer = (props) => {
       onScroll={onScroll}
       render={(recommendItem) => (
         <Space>
-          <Text type="primary">{`${recommendItem.item.name} ${recommendItem.name}`}</Text>
-          <Text type="warning">${recommendItem.price}</Text>
+          <Text type="primary">{`${recommendItem.item?.name} ${recommendItem?.name}`}</Text>
+          <Text type="warning">${recommendItem?.price}</Text>
         </Space>
       )}
       rowKey={(record) => record.id}

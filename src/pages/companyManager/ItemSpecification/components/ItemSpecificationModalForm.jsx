@@ -43,19 +43,18 @@ const ItemSpecificationModalForm = (props) => {
         />
         <ProFormItemSpecificationStatusSelect label="狀態" name={['itemSpecificationStatus']} />
       </ProFormGroup>
-      <ProFormMediaUpload form={form} label="圖片" name={['imageUrl']} />
+      <ProFormMediaUpload form={form} label="圖片" max={1} name={['imageUrl']} />
       <ProFormGroup title="倉儲">
         <ProFormText label="SKU" name={['sku']} />
         <ProFormText label="條碼" name={['barcode']} />
       </ProFormGroup>
       <ProFormGroup title="價錢">
-        <ProFormMoney label="零售原價" name={['price']} />
         <ProFormMoney
-          label="零售折扣"
-          name={['discountPrice']}
-          placeholder="30"
+          label="零售原價"
+          name={['price']}
           rules={[{ required: true, message: '請輸零售原價' }]}
         />
+        <ProFormMoney label="零售折扣" name={['discountPrice']} placeholder="30" />
       </ProFormGroup>
       <ProFormGroup title="尺吋/重量">
         <ProFormDigit label="長" name={['length']} />

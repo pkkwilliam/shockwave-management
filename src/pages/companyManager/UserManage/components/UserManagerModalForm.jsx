@@ -26,6 +26,9 @@ const UserModalForm = (props) => {
     <ModalForm
       destroyOnClose
       form={form}
+      modalProps={{
+        maskClosable: false,
+      }}
       onFinish={onFinish}
       onVisibleChange={onVisibleChange}
       title={user ? '修改用戶' : '新增用戶'}

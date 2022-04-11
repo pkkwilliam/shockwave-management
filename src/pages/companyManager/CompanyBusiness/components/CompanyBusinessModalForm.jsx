@@ -16,6 +16,9 @@ const CompanyBusinessModalForm = (props) => {
     <ModalForm
       destroyOnClose
       form={form}
+      modalProps={{
+        maskClosable: false,
+      }}
       onFinish={onFinish}
       onVisibleChange={(visible) => onModalFormVisibleChange(onVisibleChange, form, visible)}
       title={compananyBusiness ? '修改客戶' : '創建客戶'}

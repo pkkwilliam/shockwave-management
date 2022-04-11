@@ -131,7 +131,7 @@ export default [
     routes: [
       {
         path: '/shopManager/internalOrder',
-        name: '內部訂單',
+        name: '銷售訂單',
         component: './shopManager/order/InternalOrder/index',
       },
     ],

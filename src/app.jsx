@@ -61,7 +61,7 @@ export const layout = ({ initialState, setInitialState }) => {
           <Button>收銀</Button>
         </Link>
         <Link to={'/shopManager/internalOrder'}>
-          <Button>內部訂單</Button>
+          <Button>銷售訂單</Button>
         </Link>
       </Space>
     ),

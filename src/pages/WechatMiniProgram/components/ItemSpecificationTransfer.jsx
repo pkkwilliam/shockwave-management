@@ -67,8 +67,8 @@ const ItemSpecificationTransfer = (props) => {
       onScroll={onScroll}
       render={(itemSpecification) => (
         <Space>
-          <Text type="primary">{`${itemSpecification.item.name} ${itemSpecification.name}`}</Text>
-          <Text type="warning">${itemSpecification.price}</Text>
+          <Text type="primary">{`${itemSpecification?.item?.name} ${itemSpecification?.name}`}</Text>
+          <Text type="warning">${itemSpecification?.price}</Text>
         </Space>
       )}
       rowKey={(record) => record.id}

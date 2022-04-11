@@ -15,7 +15,7 @@ const CompanyConfig = (props) => {
           type: 'card',
         }}
       >
-        <ProCard.TabPane key="tab1" tab="內部訂單">
+        <ProCard.TabPane key="tab1" tab="訂單">
           <CompanyOrderConfigForm />
         </ProCard.TabPane>
         <ProCard.TabPane key="tab2" tab="微信小程序">

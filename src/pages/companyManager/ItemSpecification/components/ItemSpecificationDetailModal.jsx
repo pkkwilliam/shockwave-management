@@ -19,6 +19,7 @@ const ItemSpecificationDetailModal = (props) => {
   const { item, onCancel, visible } = props;
 
   const createItemSpecification = async (request) => {
+    delete request.id;
     const response = await BEDROCK_CREATE_SERVICE_REQEUST(
       COMPANY_MANAGER_ITEM_SPECIFICATION_SERVICE_CONFIG,
       { ...request, item },
@@ -38,6 +39,7 @@ const ItemSpecificationDetailModal = (props) => {
     return BEDROCK_QUERY_LIST_SERVICE_REQUEST(COMPANY_MANAGER_ITEM_SPECIFICATION_SERVICE_CONFIG, {
       active: true,
       'item.id': item?.id,
+      showStock: true,
     });
   };
 
@@ -51,11 +53,11 @@ const ItemSpecificationDetailModal = (props) => {
 
   const COLUMNS = [
     {
+      editable: false,
       title: '圖片',
       dataIndex: ['imageUrl'],
       search: false,
       valueType: 'image',
-      renderFormItem: () => <Upload action={'hello'} />,
     },
     {
       title: '規格名稱',
@@ -72,6 +74,14 @@ const ItemSpecificationDetailModal = (props) => {
     {
       title: '狀態',
       dataIndex: 'itemSpecificationStatus',
+      formItemProps: {
+        rules: [
+          {
+            required: true,
+            message: '請選擇狀態',
+          },
+        ],
+      },
       valueEnum: getValueEnum(ITEM_SPECIFICATION_STATUSES),
     },
     { title: '庫存', dataIndex: ['stockResponse', 'stock'], editable: false },
@@ -151,21 +161,25 @@ const ItemSpecificationDetailModal = (props) => {
           onChange: setEditableRowKeys,
           onDelete: async (rowKey, data, row) => deleteItemSpecification(data),
           onSave: async (rowKey, data, row) => {
-            data.id ? updateItemSpecification(data) : createItemSpecification(data);
+            data.id === 'temp_id' ? createItemSpecification(data) : updateItemSpecification(data);
           },
         }}
         expandable={{
           expandedRowRender: (record) => {
-            console.log(record);
             return (
               <Card>
                 <ShopItemSpecificationList itemSpecification={record} />
               </Card>
             );
           },
-          rowExpandable: (record) => record.name !== 'Not Expandable',
         }}
-        recordCreatorProps={{ position: 'bottom', creatorButtonText: '新增規格' }}
+        recordCreatorProps={{
+          position: 'top',
+          creatorButtonText: '新增規格',
+          record: () => ({
+            id: 'temp_id',
+          }),
+        }}
         request={queryItemSpecification}
         rowKey="id"
         search={false}

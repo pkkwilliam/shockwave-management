@@ -104,7 +104,7 @@ const Category = () => {
       },
       deleteShopServiceRequest,
       (text, record) =>
-        record.defaultPrinter ? <a onClick={() => onClickTestPrinter(record)}>測試打印機</a> : null,
+        record.defaultPrinter ? <a onClick={() => onClickTestPrinter(record)}>測試打印機</a> : '-',
     ),
   ];
 

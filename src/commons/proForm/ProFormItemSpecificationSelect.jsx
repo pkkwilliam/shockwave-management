@@ -12,7 +12,7 @@ const ProFormItemSpecificationSelect = (props) => {
         active: true,
         current: 1,
         pageSize: 20,
-        'item.id': param.item.id,
+        'item.id': props.item.id,
         name: param.keyWords,
       },
     );
@@ -27,14 +27,7 @@ const ProFormItemSpecificationSelect = (props) => {
     return transformedResponse;
   };
 
-  return (
-    <ProFormSelect
-      disabled={!props?.item?.id}
-      request={queryItemSpecification}
-      showSearch
-      {...props}
-    />
-  );
+  return <ProFormSelect request={queryItemSpecification} {...props} />;
 };
 
 export default ProFormItemSpecificationSelect;
