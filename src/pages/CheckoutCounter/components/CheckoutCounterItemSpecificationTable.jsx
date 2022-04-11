@@ -1,4 +1,3 @@
-import ProCard from '@ant-design/pro-card';
 import ProTable from '@ant-design/pro-table';
 import { Button, InputNumber, Row, Table } from 'antd';
 import React from 'react';
@@ -66,13 +65,10 @@ const CheckoutCounterItemSpecificationTable = (props) => {
     },
   ];
   return (
-    <Table
+    <ProTable
       options={false}
       columns={COLUMNS}
       pagination={false}
-      rowSelection={{
-        type: 'checkbox',
-      }}
       search={false}
       size="small"
       {...props}

@@ -1,11 +1,9 @@
 import React, { useState } from 'react';
 import ProCard from '@ant-design/pro-card';
-
 import CheckoutCounterItemSpecificationSelect from './components/CheckoutCounterItemSpecificationSelect';
 import CheckoutCounterItemSpecificationSelectedStatistic from './components/CheckoutCounterItemSpecificationSelectedStatistic';
 import CheckoutCounterItemSpecificationTable from './components/CheckoutCounterItemSpecificationTable';
-
-import { Button, Col, Row, Space } from 'antd';
+import { Button, Space } from 'antd';
 import CheckoutModal from './components/CheckoutModal';
 import ProFormShopSelect from '@/commons/proForm/ProFormShopSelect';
 
@@ -13,7 +11,12 @@ const CheckoutCounter = () => {
   const [checkoutModalVisible, setCheckoutModalVisible] = useState(false);
   const [currentRow, setCurrentRow] = useState();
   const [distributionShop, setDistributionShop] = useState();
+  const [scanRef, setScanRef] = useState();
   const [selectedItemSpecifications, setSelectedItemSpecifications] = useState([]);
+
+  const clear = () => {
+    setSelectedItemSpecifications([]);
+  };
 
   const onClickCheckout = () => {
     setCheckoutModalVisible(true);
@@ -55,6 +58,7 @@ const CheckoutCounter = () => {
               <ProCard colSpan={20}>
                 <CheckoutCounterItemSpecificationSelect
                   onSelect={onSelectItemSpecification}
+                  setRef={setScanRef}
                   showSearch
                 />
                 <CheckoutCounterItemSpecificationTable
@@ -63,13 +67,25 @@ const CheckoutCounter = () => {
                 />
               </ProCard>
               <ProCard layout="center">
-                <Space direction="vertical">
-                  <Button onClick={onClickCheckout} size="large" type="primary">
+                <Space direction="vertical" size="large">
+                  <Button
+                    block
+                    disabled={selectedItemSpecifications < 1}
+                    onClick={onClickCheckout}
+                    size="large"
+                    type="primary"
+                  >
                     結賬
                   </Button>
-                  <Button>數量*</Button>
-                  <Button>删行 Del</Button>
-                  <Button>掛單F12</Button>
+                  <Button block size="large" onClick={() => scanRef.current.focus()}>
+                    繼續掃描
+                  </Button>
+                  <Button block onClick={clear} size="large">
+                    清空
+                  </Button>
+                  <Button block disabled size="large">
+                    掛單F12
+                  </Button>
                 </Space>
               </ProCard>
             </ProCard>
@@ -78,6 +94,9 @@ const CheckoutCounter = () => {
       )}
       <CheckoutModal
         onChangeVisible={setCheckoutModalVisible}
+        onSuccess={() => {
+          clear();
+        }}
         order={{
           distributionShop: { id: distributionShop },
           orderItemInfos: selectedItemSpecifications,
