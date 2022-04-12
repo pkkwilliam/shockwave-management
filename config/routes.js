@@ -149,8 +149,16 @@ export default [
     component: './WechatMiniProgram/index',
   },
   {
+    path: '/systemLog',
+    name: '系統日誌',
+    access: 'canCompanyManager',
+    icon: 'fileDone',
+    component: './SystemLog/index',
+  },
+  {
     path: '/companyConfig',
     name: '系統設定',
+    access: 'canCompanyManager',
     icon: 'setting',
     component: './companyAdmin/CompanyConfig/index',
   },

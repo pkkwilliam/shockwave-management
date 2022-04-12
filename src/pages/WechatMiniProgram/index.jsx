@@ -15,7 +15,6 @@ const WechatMiniProgram = () => {
 
   const query = async () => {
     const { currentUser } = initialState || {};
-    console.log('hll', currentUser);
     const response = await COMPANY_GET_COMPANY_WECHAT_MINI_PROGRAM_CONFIG_BY_COMPANY_ID(
       currentUser.company.id,
     );
