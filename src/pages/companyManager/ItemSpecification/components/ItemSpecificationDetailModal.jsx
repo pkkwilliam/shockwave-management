@@ -55,12 +55,16 @@ const ItemSpecificationDetailModal = (props) => {
     {
       editable: false,
       title: '圖片',
+      ellipsis: true,
       dataIndex: ['imageUrl'],
       search: false,
+      tooltip: "圖片可在左則導航欄'管理' -> '商品規格'中修改或增加",
       valueType: 'image',
     },
     {
       title: '規格名稱',
+      copyable: true,
+      ellipsis: true,
       dataIndex: 'name',
       formItemProps: {
         rules: [
@@ -85,8 +89,8 @@ const ItemSpecificationDetailModal = (props) => {
       valueEnum: getValueEnum(ITEM_SPECIFICATION_STATUSES),
     },
     { title: '庫存', dataIndex: ['stockResponse', 'stock'], editable: false },
-    { title: 'SKU', dataIndex: 'sku' },
-    { title: '條碼', dataIndex: 'barcode' },
+    { title: 'SKU', dataIndex: 'sku', copyable: true, ellipsis: true },
+    { title: '條碼', dataIndex: 'barcode', copyable: true, ellipsis: true },
     {
       title: '零售價格',
       dataIndex: 'price',

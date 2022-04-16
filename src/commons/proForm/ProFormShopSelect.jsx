@@ -1,5 +1,5 @@
 import { BEDROCK_QUERY_LIST_SERVICE_REQUEST } from '@/services/hive/bedrockTemplateService';
-import { COMPANY_MANAGER_SHOP_SERVICE_CONFIG } from '@/services/hive/shop';
+import { COMPANY_MANAGER_SHOP_SERVICE_CONFIG } from '@/services/hive/shopService';
 import { ProFormSelect } from '@ant-design/pro-form';
 import React from 'react';
 

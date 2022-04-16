@@ -1,6 +1,6 @@
 import ShopModalForm from '@/pages/companyManager/Shop/components/shopModalForm';
 import { BEDROCK_CREATE_SERVICE_REQEUST } from '@/services/hive/bedrockTemplateService';
-import { COMPANY_MANAGER_SHOP_SERVICE_CONFIG } from '@/services/hive/shop';
+import { COMPANY_MANAGER_SHOP_SERVICE_CONFIG } from '@/services/hive/shopService';
 import ProCard from '@ant-design/pro-card';
 import { Button, Space } from 'antd';
 import Text from 'antd/lib/typography/Text';

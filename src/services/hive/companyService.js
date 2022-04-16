@@ -7,6 +7,11 @@ export const ADMIN_COMPANY_SERVICE_CONFIG = {
   serviceUrl: ADMIN_COMPANY_SERVICE_URL,
 };
 
+export const PUBLIC_COMAPNY_SERVICE_CONFIG = {
+  authenticated: false,
+  serviceUrl: '/public/company/v1',
+};
+
 // export async function ADMIN_COMPANY_DELETE(companyId) {
 //   const requestBody = {
 //     authenticated: true,

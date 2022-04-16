@@ -1,6 +1,6 @@
 import React, { useRef, useState } from 'react';
 import { PageContainer } from '@ant-design/pro-layout';
-import { COMPANY_MANAGER_SHOP_SERVICE_CONFIG } from '@/services/hive/shop';
+import { COMPANY_MANAGER_SHOP_SERVICE_CONFIG } from '@/services/hive/shopService';
 import { Button, Popconfirm } from 'antd';
 import { PlusOutlined } from '@ant-design/icons';
 import ProTable from '@ant-design/pro-table';

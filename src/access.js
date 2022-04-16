@@ -10,5 +10,6 @@ export default function access(initialState) {
       currentUser &&
       (currentUser.grantedRoles.includes('ROLE_COMPANY_MANAGER') ||
         currentUser.grantedRoles.includes('ROLE_COMPANY_ADMIN')),
+    canPublic: true,
   };
 }

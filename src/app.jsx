@@ -12,6 +12,8 @@ import { Button, Space } from 'antd';
 import { GET_COMPANY_ONBOARD } from './services/hive/companyOnboardService';
 
 const isDev = process.env.NODE_ENV === 'development';
+const companyMallPath = '/company/mall';
+
 const loginPath = '/user/login';
 const trialPath = '/user/trial';
 /** 获取用户信息比较慢的时候会展示一个 loading */
@@ -34,7 +36,11 @@ export async function getInitialState() {
     return undefined;
   };
   // 如果是登录页面 or Trial Page，不执行
-  if (history.location.pathname !== loginPath && history.location.pathname !== trialPath) {
+  if (
+    history.location.pathname !== companyMallPath &&
+    history.location.pathname !== loginPath &&
+    history.location.pathname !== trialPath
+  ) {
     const currentUser = await fetchUserInfo();
     const companyConfig = await PUBLIC_GET_COMPANY_CONFIG_BY_COMPANY_ID(currentUser.company.id);
     const companyOnBoard = await GET_COMPANY_ONBOARD();
@@ -75,6 +81,7 @@ export const layout = ({ initialState, setInitialState }) => {
       const { location } = history; // 如果没有登录，重定向到 login
       if (
         !initialState?.currentUser &&
+        location.pathname !== companyMallPath &&
         location.pathname !== loginPath &&
         location.pathname !== trialPath
       ) {

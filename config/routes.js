@@ -22,6 +22,21 @@ export default [
     ],
   },
   {
+    hideInMenu: true,
+    path: '/company/mall',
+    layout: false,
+    name: '賬號',
+    routes: [
+      {
+        exact: true,
+        access: 'canPublic',
+        path: '/company/mall/:companyId/:shopId',
+        name: '企業商城',
+        component: './CompanyMall/index',
+      },
+    ],
+  },
+  {
     path: '/user',
     layout: false,
     routes: [
@@ -141,6 +156,12 @@ export default [
     name: '收銀',
     icon: 'moneyCollect',
     component: './CheckoutCounter/index',
+  },
+  {
+    path: '/companyMallConfig',
+    name: '企業商城',
+    icon: 'shop',
+    component: './company/CompanyMallConfig/index',
   },
   {
     path: '/wechatMiniProgram',

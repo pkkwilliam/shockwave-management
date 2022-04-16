@@ -63,7 +63,7 @@ const InternalOrder = () => {
   };
 
   const COLUMNS = [
-    { title: '單號', dataIndex: ['id'] },
+    { title: '單號', dataIndex: ['id'], renderText: (text, record) => '61' + text },
     {
       title: '創單日期',
       dataIndex: ['createTime'],
@@ -76,6 +76,7 @@ const InternalOrder = () => {
       title: '送貨地址',
       renderText: (text, record) =>
         `${record.deliveryAddress?.street ?? '-'} ${record.deliveryAddress?.unit ?? ''}`,
+      search: false,
     },
     { title: '配貨地點', dataIndex: ['distributionShop', 'name'] },
     {
@@ -92,14 +93,17 @@ const InternalOrder = () => {
       title: '總價',
       dataIndex: ['cost'],
       valueType: 'money',
+      search: false,
     },
     {
       title: '規格數量',
       render: (text, record) => <a>{record.orderItemInfos.length}</a>,
+      search: false,
     },
     {
       title: '備註',
       dataIndex: ['remark'],
+      search: false,
     },
     ProTableOperationColumnButtons(
       (record) => {

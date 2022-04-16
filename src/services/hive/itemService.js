@@ -12,6 +12,11 @@ export const COMPANY_ITEM_SERVICE_CONFIG = {
   serviceUrl: COMPANY_ITEM_SERVICE_URL,
 };
 
+export const PUBLIC_ITEM_SERVICE_CONFIG = {
+  requireAuth: true,
+  serviceUrl: '/public/item/v1',
+};
+
 export async function COMPANY_MANAGER_QUERY_WITH_STOCK(params, sort, filter) {
   const request = {
     authenticated: COMPANY_MANAGER_ITEM_SERVICE_CONFIG.requireAuth,
