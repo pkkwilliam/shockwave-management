@@ -63,7 +63,7 @@ const InternalOrder = () => {
   };
 
   const COLUMNS = [
-    { title: '單號', dataIndex: ['id'], renderText: (text, record) => '61' + text },
+    { title: '單號', dataIndex: ['id'] },
     {
       title: '創單日期',
       dataIndex: ['createTime'],
