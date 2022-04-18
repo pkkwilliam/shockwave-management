@@ -8,7 +8,10 @@ const MpayHelper = () => {
   const [h5PaymentRequest, setH5PaymentRequest] = useState();
 
   const getH5PaymentRequest = async () => {
-    const response = await PUBLIC_GET_MPAY_H5_ORDER_REQUEST(orderId);
+    const response = await PUBLIC_GET_MPAY_H5_ORDER_REQUEST(
+      orderId,
+      MPAY_RETURN_URL + `/${orderId}`,
+    );
     setH5PaymentRequest(response);
   };
 

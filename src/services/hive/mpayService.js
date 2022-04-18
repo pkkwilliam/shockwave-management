@@ -15,11 +15,11 @@ export async function PUBLIC_TEST_GET_MPAY_H5_REQUEST(transactionId) {
   return constructBasicRequest(request);
 }
 
-export async function PUBLIC_GET_MPAY_H5_ORDER_REQUEST(orderId) {
+export async function PUBLIC_GET_MPAY_H5_ORDER_REQUEST(orderId, returnUrl) {
   const request = {
     authenticated: false,
     method: 'POST',
-    params: { orderId },
+    params: { orderId, returnUrl },
     requestUrl: PUBLIC_MPAY_SERVICE_URL + '/h5',
   };
   return constructBasicRequest(request);
