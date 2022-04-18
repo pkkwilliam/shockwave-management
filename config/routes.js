@@ -37,6 +37,21 @@ export default [
     ],
   },
   {
+    hideInMenu: true,
+    path: '/mpayH5Helper',
+    layout: false,
+    name: 'Mpay支付',
+    routes: [
+      {
+        exact: true,
+        access: 'canPublic',
+        path: '/mpayH5Helper/:orderId',
+        name: '支付系統',
+        component: './MpayHelper/index',
+      },
+    ],
+  },
+  {
     path: '/user',
     layout: false,
     routes: [
