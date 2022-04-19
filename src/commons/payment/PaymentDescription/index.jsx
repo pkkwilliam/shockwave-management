@@ -36,13 +36,13 @@ const PaymentDescription = (props) => {
         <Descriptions.Item label="應用名稱">{payment.applicationName}</Descriptions.Item>
         <Descriptions.Item label="幣種">{payment.currency}</Descriptions.Item>
         <Descriptions.Item label="過期時間">
-          {toDisplayDate(payment.expireDateTime, 'YYYY-MM-DD HH:MM:SS')}
+          {toDisplayDate(payment.expireDateTime, 'yyyy-MM-dd HH:mm:ss')}
         </Descriptions.Item>
         <Descriptions.Item label="支付渠道">
           {getEnumLabelByKey(PAYMENT_CHANNELS, payment.paymentChannel)}
         </Descriptions.Item>
         <Descriptions.Item label="支付時間">
-          {toDisplayDate(payment.paymentDateTime, 'YYYY-MM-DD HH:MM:SS')}
+          {toDisplayDate(payment.paymentDateTime, 'yyyy-MM-dd HH:mm:ss')}
         </Descriptions.Item>
         <Descriptions.Item label="支付狀態">
           {getEnumLabelByKey(PAYMENT_STATUSES, payment.paymentStatus)}
