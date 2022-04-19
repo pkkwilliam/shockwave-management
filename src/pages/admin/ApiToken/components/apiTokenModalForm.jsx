@@ -1,8 +1,9 @@
 import React from 'react';
 import { ModalForm, ProFormText } from '@ant-design/pro-form';
 import { Form } from 'antd';
+import ProFormCompanySelect from '@/commons/proForm/ProFormCompanySelect';
 
-const CompanyModalForm = (props) => {
+const ApiTokenModalForm = (props) => {
   const [form] = Form.useForm();
   const { company, onClickSubmit, setModalVisible, visible } = props;
   form.setFieldsValue(company);
@@ -15,20 +16,15 @@ const CompanyModalForm = (props) => {
       title={company ? '修改企業' : '新增企業'}
       visible={visible}
     >
-      <ProFormText
-        label="企業中文名稱"
-        placeholder="請輸入企業中文名稱"
+      <ProFormCompanySelect
+        label="企業"
+        placeholder="請選擇企業"
         required
-        name="chineseName"
+        name={['company', 'id']}
       />
-      <ProFormText
-        label="企業英文名稱"
-        placeholder="請輸入企業英文名稱"
-        required
-        name="englishName"
-      />
+      <ProFormText label="應用名稱" placeholder="請輸入應用名稱" required name="applicationName" />
     </ModalForm>
   );
 };
 
-export default CompanyModalForm;
+export default ApiTokenModalForm;

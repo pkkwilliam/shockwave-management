@@ -3,7 +3,6 @@ import { PageContainer } from '@ant-design/pro-layout';
 import { Alert, Typography } from 'antd';
 import { useIntl } from 'umi';
 import styles from './Welcome.less';
-import Onboard from '@/components/Onboard';
 
 const CodePreview = ({ children }) => (
   <pre className={styles.pre}>
@@ -15,11 +14,7 @@ const CodePreview = ({ children }) => (
 
 const Welcome = () => {
   const intl = useIntl();
-  return (
-    <PageContainer>
-      <Onboard />
-    </PageContainer>
-  );
+  return <PageContainer></PageContainer>;
 };
 
 export default Welcome;

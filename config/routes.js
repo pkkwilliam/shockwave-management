@@ -21,21 +21,7 @@ export default [
       },
     ],
   },
-  {
-    hideInMenu: true,
-    path: '/company/mall',
-    layout: false,
-    name: '賬號',
-    routes: [
-      {
-        exact: true,
-        access: 'canPublic',
-        path: '/company/mall/:companyId/:shopId',
-        name: '企業商城',
-        component: './CompanyMall/index',
-      },
-    ],
-  },
+
   {
     hideInMenu: true,
     path: '/mpayH5Helper',
@@ -63,16 +49,6 @@ export default [
             path: '/user/login',
             component: './user/Login',
           },
-          {
-            path: '/user',
-            routes: [
-              {
-                name: 'Hive試用',
-                path: '/user/trial',
-                component: './user/Trial',
-              },
-            ],
-          },
         ],
       },
 
@@ -83,7 +59,7 @@ export default [
   },
   {
     path: '/admin',
-    name: 'Hive管理',
+    name: '助力管理',
     access: 'canAdmin',
     routes: [
       {
@@ -92,111 +68,11 @@ export default [
         component: './admin/Company/index',
       },
       {
-        path: '/admin/user',
-        name: '用戶',
-        component: './admin/User/index',
+        path: '/admin/apiToken',
+        name: 'API Token',
+        component: './admin/ApiToken/index',
       },
     ],
-  },
-  {
-    path: '/companyManager',
-    name: '管理',
-    routes: [
-      {
-        path: '/companyManager/shop',
-        name: '門店/倉庫',
-        component: './companyManager/Shop/index',
-      },
-      {
-        path: '/companyManager/companyBusiness',
-        name: '客戶',
-        component: './companyManager/CompanyBusiness/index',
-      },
-      {
-        path: '/companyManager/user',
-        name: '內部人員',
-        component: './companyManager/UserManage/index',
-      },
-      {
-        path: '/companyManager/printer',
-        name: '打印機',
-        component: './company/Printer/index',
-      },
-    ],
-  },
-  {
-    path: '/companyManagerItem',
-    name: '商品管理',
-    routes: [
-      {
-        path: '/companyManagerItem/category',
-        name: '標簽',
-        component: './company/Category/index',
-      },
-      {
-        path: '/companyManagerItem/item',
-        name: '商品',
-        component: './company/Item/index',
-      },
-      {
-        path: '/companyManagerItem/itemSpecification',
-        name: '商品規格',
-        component: './companyManager/ItemSpecification/index',
-      },
-      {
-        path: '/companyManagerItem/itemSpecificationStock',
-        name: '地點庫存',
-        component: './shopManager/ItemSpecificationStock/index',
-      },
-      {
-        path: '/companyManagerItem/itemSpecificationPriceTemplate',
-        name: '價格模版',
-        component: './companyManager/ItemSpecificationPriceTemplate/index',
-      },
-    ],
-  },
-  {
-    path: '/shopManager',
-    name: '訂單',
-    routes: [
-      {
-        path: '/shopManager/internalOrder',
-        name: '銷售訂單',
-        component: './shopManager/order/InternalOrder/index',
-      },
-    ],
-  },
-  {
-    path: '/checkoutCounter',
-    name: '收銀',
-    icon: 'moneyCollect',
-    component: './CheckoutCounter/index',
-  },
-  {
-    path: '/companyMallConfig',
-    name: '企業商城',
-    icon: 'shop',
-    component: './company/CompanyMallConfig/index',
-  },
-  {
-    path: '/wechatMiniProgram',
-    name: '微信小程序',
-    icon: 'wechat',
-    component: './WechatMiniProgram/index',
-  },
-  {
-    path: '/systemLog',
-    name: '系統日誌',
-    access: 'canCompanyManager',
-    icon: 'fileDone',
-    component: './SystemLog/index',
-  },
-  {
-    path: '/companyConfig',
-    name: '系統設定',
-    access: 'canCompanyManager',
-    icon: 'setting',
-    component: './companyAdmin/CompanyConfig/index',
   },
   {
     component: './404',

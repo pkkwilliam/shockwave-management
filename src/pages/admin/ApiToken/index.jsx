@@ -1,12 +1,8 @@
 import React, { useRef, useState } from 'react';
 import ProTable from '@ant-design/pro-table';
-
 import { Button, Popconfirm } from 'antd';
 import { PlusOutlined } from '@ant-design/icons';
 import { PageContainer } from '@ant-design/pro-layout';
-
-import CompanyModalForm from './components/companyModalForm';
-
 import { ADMIN_COMPANY_SERVICE_CONFIG } from '@/services/hive/companyService';
 import {
   BEDROCK_CREATE_SERVICE_REQEUST,
@@ -16,26 +12,28 @@ import {
 } from '@/services/hive/bedrockTemplateService';
 import { getValueEnum } from '@/enum/enumUtil';
 import { COMPANY_ACCOUNT_TYPES } from '@/enum/companyAccountType';
+import { ADMIN_API_TOKEN_SERVICE_CONFIG } from '@/services/hive/apiTokenService';
+import ApiTokenModalForm from './components/apiTokenModalForm';
 
-const Compamy = () => {
+const ApiToken = () => {
   const actionRef = useRef();
   const [createModalVisible, setCreateModalVisible] = useState(false);
   const [currentRow, setCurrentRow] = useState();
   const [updateModalVisible, setUpdateModalVisible] = useState(false);
 
   const createCompanyServiceRequest = async (company) => {
-    await BEDROCK_CREATE_SERVICE_REQEUST(ADMIN_COMPANY_SERVICE_CONFIG, company);
+    await BEDROCK_CREATE_SERVICE_REQEUST(ADMIN_API_TOKEN_SERVICE_CONFIG, company);
     setCreateModalVisible(false);
     onDataChanged();
   };
 
   const deleteCompanyServiceRequest = async (company) => {
-    await BEDROCK_DEACTIVATE_SERVICE_REQUEST(ADMIN_COMPANY_SERVICE_CONFIG, company.id);
+    await BEDROCK_DEACTIVATE_SERVICE_REQUEST(ADMIN_API_TOKEN_SERVICE_CONFIG, company.id);
     onDataChanged();
   };
 
   const updateCompanyServiceRequest = async (company) => {
-    await BEDROCK_UPDATE_SERVICE_REQUEST(ADMIN_COMPANY_SERVICE_CONFIG, company);
+    await BEDROCK_UPDATE_SERVICE_REQUEST(ADMIN_API_TOKEN_SERVICE_CONFIG, company);
     setUpdateModalVisible(false);
     onDataChanged();
   };
@@ -46,8 +44,8 @@ const Compamy = () => {
 
   const COLUMNS = [
     {
-      title: '企業中文名',
-      dataIndex: 'chineseName',
+      title: '企業',
+      dataIndex: ['company', 'chineseName'],
       copyable: true,
       ellipsis: true,
       tip: '企業名過長會自動收縮',
@@ -61,19 +59,17 @@ const Compamy = () => {
       },
     },
     {
-      title: '企業英文名',
-      dataIndex: 'englishName',
+      title: '應用名稱',
+      dataIndex: 'applicationName',
       copyable: true,
       ellipsis: true,
-      tip: '企業名過長會自動收縮',
-      formItemProps: {
-        rules: [
-          {
-            required: true,
-            message: '企業名為必填',
-          },
-        ],
-      },
+      tip: '應用名稱過長會自動收縮',
+    },
+    {
+      title: 'API Key',
+      dataIndex: 'apiKey',
+      copyable: true,
+      tip: 'API Key過長會自動收縮',
     },
     {
       title: '操作',
@@ -107,7 +103,7 @@ const Compamy = () => {
         actionRef={actionRef}
         columns={COLUMNS}
         request={async (params = {}, sort, filter) => {
-          return BEDROCK_QUERY_PAGINATION_SERVICE_REQUEST(ADMIN_COMPANY_SERVICE_CONFIG, {
+          return BEDROCK_QUERY_PAGINATION_SERVICE_REQUEST(ADMIN_API_TOKEN_SERVICE_CONFIG, {
             ...params,
             active: true,
           });
@@ -127,19 +123,13 @@ const Compamy = () => {
           </Button>,
         ]}
       />
-      <CompanyModalForm
+      <ApiTokenModalForm
         onClickSubmit={createCompanyServiceRequest}
         setModalVisible={setCreateModalVisible}
         visible={createModalVisible}
-      />
-      <CompanyModalForm
-        company={currentRow || {}}
-        onClickSubmit={updateCompanyServiceRequest}
-        setModalVisible={setUpdateModalVisible}
-        visible={updateModalVisible}
       />
     </PageContainer>
   );
 };
 
-export default Compamy;
+export default ApiToken;
