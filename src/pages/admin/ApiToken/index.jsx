@@ -3,15 +3,12 @@ import ProTable from '@ant-design/pro-table';
 import { Button, Popconfirm } from 'antd';
 import { PlusOutlined } from '@ant-design/icons';
 import { PageContainer } from '@ant-design/pro-layout';
-import { ADMIN_COMPANY_SERVICE_CONFIG } from '@/services/hive/companyService';
 import {
   BEDROCK_CREATE_SERVICE_REQEUST,
   BEDROCK_DEACTIVATE_SERVICE_REQUEST,
   BEDROCK_QUERY_PAGINATION_SERVICE_REQUEST,
   BEDROCK_UPDATE_SERVICE_REQUEST,
 } from '@/services/hive/bedrockTemplateService';
-import { getValueEnum } from '@/enum/enumUtil';
-import { COMPANY_ACCOUNT_TYPES } from '@/enum/companyAccountType';
 import { ADMIN_API_TOKEN_SERVICE_CONFIG } from '@/services/hive/apiTokenService';
 import ApiTokenModalForm from './components/apiTokenModalForm';
 

@@ -6,12 +6,10 @@ import Footer from '@/components/Footer';
 import { BookOutlined, LinkOutlined } from '@ant-design/icons';
 import defaultSettings from '../config/defaultSettings';
 import { GET_USER_PROFILE } from './services/hive/userProfile';
-import { PUBLIC_GET_COMPANY_CONFIG_BY_COMPANY_ID } from './services/hive/companyConfigService';
 import { Button, Space } from 'antd';
-import { GET_COMPANY_ONBOARD } from './services/hive/companyOnboardService';
 
 const isDev = process.env.NODE_ENV === 'development';
-const mpayHelper = '/mpayH5Helper';
+const h5Payment = '/h5';
 const loginPath = '/user/login';
 /** 获取用户信息比较慢的时候会展示一个 loading */
 
@@ -33,7 +31,7 @@ export async function getInitialState() {
     return undefined;
   };
   // 如果是登录页面 or Trial Page，不执行
-  if (!history.location.pathname.includes(mpayHelper) && history.location.pathname !== loginPath) {
+  if (!history.location.pathname.includes(h5Payment) && history.location.pathname !== loginPath) {
     const currentUser = await fetchUserInfo();
     return {
       fetchUserInfo,
@@ -50,16 +48,7 @@ export async function getInitialState() {
 
 export const layout = ({ initialState, setInitialState }) => {
   return {
-    headerContentRender: () => (
-      <Space style={{ marginLeft: 16 }}>
-        <Link to={'/checkoutCounter'}>
-          <Button>收銀</Button>
-        </Link>
-        <Link to={'/shopManager/internalOrder'}>
-          <Button>銷售訂單</Button>
-        </Link>
-      </Space>
-    ),
+    headerContentRender: () => <Space style={{ marginLeft: 16 }}></Space>,
     rightContentRender: () => <RightContent />,
     disableContentMargin: false,
     waterMarkProps: {
@@ -70,7 +59,7 @@ export const layout = ({ initialState, setInitialState }) => {
       const { location } = history; // 如果没有登录，重定向到 login
       if (
         !initialState?.currentUser &&
-        !location.pathname.includes(mpayHelper) &&
+        !location.pathname.includes(h5Payment) &&
         location.pathname !== loginPath
       ) {
         history.push(loginPath);

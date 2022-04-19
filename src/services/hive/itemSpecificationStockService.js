@@ -1,7 +1,0 @@
-const COMPANY_SHOP_MANAGER_ITEM_SPECIFICATION_STOCK_SERVICE_URL =
-  '/company_shop_manager/item_specification_stock/v1';
-
-export const COMPANY_SHOP_MANAGER_ITEM_SPECIFICATION_STOCK_SERVICE_CONFIG = {
-  requireAuth: true,
-  serviceUrl: COMPANY_SHOP_MANAGER_ITEM_SPECIFICATION_STOCK_SERVICE_URL,
-};

@@ -1,12 +1,9 @@
 import React, { useRef, useState } from 'react';
 import ProTable from '@ant-design/pro-table';
-
 import { Button, Popconfirm } from 'antd';
 import { PlusOutlined } from '@ant-design/icons';
 import { PageContainer } from '@ant-design/pro-layout';
-
 import CompanyModalForm from './components/companyModalForm';
-
 import { ADMIN_COMPANY_SERVICE_CONFIG } from '@/services/hive/companyService';
 import {
   BEDROCK_CREATE_SERVICE_REQEUST,
@@ -14,8 +11,6 @@ import {
   BEDROCK_QUERY_PAGINATION_SERVICE_REQUEST,
   BEDROCK_UPDATE_SERVICE_REQUEST,
 } from '@/services/hive/bedrockTemplateService';
-import { getValueEnum } from '@/enum/enumUtil';
-import { COMPANY_ACCOUNT_TYPES } from '@/enum/companyAccountType';
 
 const Compamy = () => {
   const actionRef = useRef();

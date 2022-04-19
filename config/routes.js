@@ -24,18 +24,12 @@ export default [
 
   {
     hideInMenu: true,
-    path: '/mpayH5Helper',
+    exact: true,
     layout: false,
-    name: 'Mpay支付',
-    routes: [
-      {
-        exact: true,
-        access: 'canPublic',
-        path: '/mpayH5Helper/:orderId',
-        name: '支付系統',
-        component: './MpayHelper/index',
-      },
-    ],
+    access: 'canPublic',
+    path: '/h5/:paymentId',
+    name: 'H5助力',
+    component: './H5/index',
   },
   {
     path: '/user',
@@ -60,7 +54,6 @@ export default [
   {
     path: '/admin',
     name: '助力管理',
-    access: 'canAdmin',
     routes: [
       {
         path: '/admin/company',

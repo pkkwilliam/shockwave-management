@@ -1,6 +1,0 @@
-const COMPANY_MANAGER_COMPANY_BUSINESS_SERVICE_URL = '/company_manager/company_business/v1';
-
-export const COMPANY_MANAGER_COMPANY_BUSINESS_SERVICE_CONFIG = {
-  requireAuth: true,
-  serviceUrl: COMPANY_MANAGER_COMPANY_BUSINESS_SERVICE_URL,
-};
