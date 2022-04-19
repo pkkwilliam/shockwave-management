@@ -8,32 +8,25 @@ import { PAYMENT_STATUS_PENDING } from '@/enum/paymentStatus';
 import PaymentDescription from '@/commons/payment/PaymentDescription';
 
 const MpayHelper = () => {
-  const { transactionId, out_trans_id } = useParams();
-  console.log(out_trans_id, transactionId);
+  const { transactionId } = useParams();
   const [h5PaymentRequest, setH5PaymentRequest] = useState();
   const [payment, setPayment] = useState({});
 
   useEffect(() => {
-    if (h5PaymentRequest) {
-      document.forms['payment_auto_submit_form'].submit();
-    }
-  }, [h5PaymentRequest]);
-
-  useEffect(() => {
-    // getH5PaymentRequest();
     getPaymentByTransationId();
   }, [transactionId]);
 
   const executeH5Payment = async () => {
     const response = await H5_PAYMENT(transactionId);
     setH5PaymentRequest(response);
+    document.forms['payment_auto_submit_form'].submit();
   };
 
   const getPaymentByTransationId = async () => {
     const response = await GET_PAYMENT_BY_TRANSACTION_ID(transactionId);
     setPayment(response);
     if (response.paymentStatus === PAYMENT_STATUS_PENDING.key) {
-      // executeH5Payment();
+      executeH5Payment();
     }
   };
 
