@@ -1,5 +1,10 @@
 import { constructBasicRequest } from './config';
 
+export const ADMIN_PAYMENT_SERVICE_CONFIG = {
+  requireAuth: false,
+  serviceUrl: '/admin/payment/v1',
+};
+
 export const PAYMENT_SERVICE_CONFIG = {
   requireAuth: false,
   serviceUrl: '/payment/v1',
