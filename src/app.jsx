@@ -10,6 +10,7 @@ import { Button, Space } from 'antd';
 
 const isDev = process.env.NODE_ENV === 'development';
 const h5Payment = '/h5';
+const resultPath = '/result';
 const loginPath = '/user/login';
 /** 获取用户信息比较慢的时候会展示一个 loading */
 
@@ -31,7 +32,11 @@ export async function getInitialState() {
     return undefined;
   };
   // 如果是登录页面 or Trial Page，不执行
-  if (!history.location.pathname.includes(h5Payment) && history.location.pathname !== loginPath) {
+  if (
+    !history.location.pathname.includes(h5Payment) &&
+    !history.location.pathname.includes(resultPath) &&
+    history.location.pathname !== loginPath
+  ) {
     const currentUser = await fetchUserInfo();
     return {
       fetchUserInfo,
@@ -60,6 +65,7 @@ export const layout = ({ initialState, setInitialState }) => {
       if (
         !initialState?.currentUser &&
         !location.pathname.includes(h5Payment) &&
+        !location.pathname.includes(resultPath) &&
         location.pathname !== loginPath
       ) {
         history.push(loginPath);

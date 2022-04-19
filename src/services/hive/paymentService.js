@@ -18,3 +18,12 @@ export async function H5_PAYMENT(paymentId) {
   };
   return constructBasicRequest(request);
 }
+
+export async function GET_PAYMENT_BY_TRANSACTION_ID(transactionId) {
+  const request = {
+    authenticated: PAYMENT_SERVICE_CONFIG.requireAuth,
+    method: 'GET',
+    requestUrl: PAYMENT_SERVICE_CONFIG.serviceUrl + `/${transactionId}`,
+  };
+  return constructBasicRequest(request);
+}

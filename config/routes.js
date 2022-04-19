@@ -21,15 +21,23 @@ export default [
       },
     ],
   },
-
   {
     hideInMenu: true,
     exact: true,
     layout: false,
     access: 'canPublic',
     path: '/h5/:transactionId',
-    name: 'H5助力',
+    name: '助力API',
     component: './H5/index',
+  },
+  {
+    hideInMenu: true,
+    exact: true,
+    layout: false,
+    access: 'canPublic',
+    path: '/result/:transactionId',
+    name: '助力API',
+    component: './Result/index',
   },
   {
     path: '/user',
