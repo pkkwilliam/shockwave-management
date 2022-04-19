@@ -7,7 +7,7 @@ const Settings = {
   fixedHeader: false,
   fixSiderbar: true,
   colorWeak: false,
-  title: '助力系統',
+  title: '助力API',
   pwa: false,
   logo: '/logo.png',
   iconfontUrl: '',
