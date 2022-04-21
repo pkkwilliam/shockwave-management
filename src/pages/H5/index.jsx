@@ -6,6 +6,7 @@ import { Button, Card, Layout } from 'antd';
 import { Content } from 'antd/lib/layout/layout';
 import { PAYMENT_STATUS_PENDING } from '@/enum/paymentStatus';
 import PaymentDescription from '@/commons/payment/PaymentDescription';
+import WechatBrowserMask, { isWechatBrowser } from '@/commons/WechatBrowserMask';
 
 const MpayHelper = () => {
   const { transactionId } = useParams();
@@ -38,38 +39,46 @@ const MpayHelper = () => {
     executeH5Payment();
   };
 
-  return (
-    <div className={styles.container}>
-      <form id="payment_auto_submit_form" action={h5PaymentRequest?.requestUrl ?? ''} method="get">
-        {Object.keys(h5PaymentRequest?.paymentRequest ?? []).map((key) => (
-          <input hidden name={key} value={h5PaymentRequest.paymentRequest[key]} key="formPay" />
-        ))}
-      </form>
-      <Layout>
-        <Content
-          style={{
-            padding: 12,
-            margin: 0,
-            minHeight: 280,
-          }}
+  if (isWechatBrowser() && payment.paymentStatus === PAYMENT_STATUS_PENDING.key) {
+    return <WechatBrowserMask />;
+  } else {
+    return (
+      <div className={styles.container}>
+        <form
+          id="payment_auto_submit_form"
+          action={h5PaymentRequest?.requestUrl ?? ''}
+          method="get"
         >
-          <Card>
-            <PaymentDescription payment={payment}>
-              <Button
-                block
-                type="primary"
-                onClick={
-                  payment.paymentStatus === PAYMENT_STATUS_PENDING.key ? onClickPay : onClickBack
-                }
-              >
-                {payment.paymentStatus === PAYMENT_STATUS_PENDING.key ? '支付' : '返回'}
-              </Button>
-            </PaymentDescription>
-          </Card>
-        </Content>
-      </Layout>
-    </div>
-  );
+          {Object.keys(h5PaymentRequest?.paymentRequest ?? []).map((key) => (
+            <input hidden name={key} value={h5PaymentRequest.paymentRequest[key]} key="formPay" />
+          ))}
+        </form>
+        <Layout>
+          <Content
+            style={{
+              padding: 12,
+              margin: 0,
+              minHeight: 280,
+            }}
+          >
+            <Card>
+              <PaymentDescription payment={payment}>
+                <Button
+                  block
+                  type="primary"
+                  onClick={
+                    payment.paymentStatus === PAYMENT_STATUS_PENDING.key ? onClickPay : onClickBack
+                  }
+                >
+                  {payment.paymentStatus === PAYMENT_STATUS_PENDING.key ? '支付' : '返回'}
+                </Button>
+              </PaymentDescription>
+            </Card>
+          </Content>
+        </Layout>
+      </div>
+    );
+  }
 };
 
 export default MpayHelper;
