@@ -26,7 +26,7 @@ const MpayHelper = () => {
   const getPaymentByTransationId = async () => {
     const response = await GET_PAYMENT_BY_TRANSACTION_ID(transactionId);
     setPayment(response);
-    if (response.paymentStatus === PAYMENT_STATUS_PENDING.key) {
+    if (!isWechatBrowser() && response.paymentStatus === PAYMENT_STATUS_PENDING.key) {
       executeH5Payment();
     }
   };
